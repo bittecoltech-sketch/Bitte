@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+@theme {
+  /* Colors */
+  --color-bitte-base: #050505;
+  --color-bitte-void: #0B1121;
+  --color-bitte-steel: #94A3B8;
+  --color-bitte-white: #FFFFFF;
+  --color-bitte-blue: #3B82F6;
+  --color-bitte-gold: #EAB308;
+  --color-bitte-green: #10B981;
+  --color-bitte-coral: #EF4444;
+
+  /* Animations */
+  --animate-pulse-slow: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-float: float 6s ease-in-out infinite;
+
+  @keyframes float {
+
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  /* Backgrounds */
+  --background-image-industrial-glow: conic-gradient(from 180deg at 50% 50%, #3B82F6 0deg, #10B981 180deg, #EAB308 360deg);
+}
+
+/* Custom Utilities that use the theme */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .glass-panel {
+    @apply bg-bitte-void/60 backdrop-blur-md border border-white/5 shadow-xl;
+  }
+
+  .glow-text {
+    text-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+  }
+}
+
+/* Base Styles */
+:root {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 5, 5, 5;
+  --background-end-rgb: 5, 5, 5;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+  overflow-x: hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-bitte-base;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-bitte-void rounded-full border border-white/10;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-bitte-blue/50;
+}
