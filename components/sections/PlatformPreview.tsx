@@ -1,18 +1,50 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { Play, Cloud, Database, Cpu, Shield, Globe, Server } from "lucide-react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Play, Cloud, Database, Cpu, Shield, Globe, Server, Activity, Zap, Lock, BarChart3, Settings } from "lucide-react";
 import { AreaChart, Area, XAxis, YAxis, ResponsiveContainer, Tooltip } from 'recharts';
 
-const data = [
-    { name: 'Mon', val: 4000 },
-    { name: 'Tue', val: 3000 },
-    { name: 'Wed', val: 2000 },
-    { name: 'Thu', val: 2780 },
-    { name: 'Fri', val: 1890 },
-    { name: 'Sat', val: 2390 },
-    { name: 'Sun', val: 3490 },
-];
+const VIEW_DATA = {
+    dashboard: {
+        chart: [
+            { name: 'Mon', val: 4000 }, { name: 'Tue', val: 3000 }, { name: 'Wed', val: 2000 },
+            { name: 'Thu', val: 2780 }, { name: 'Fri', val: 1890 }, { name: 'Sat', val: 2390 }, { name: 'Sun', val: 3490 },
+        ],
+        metrics: [
+            { label: "Eficiencia Operativa", val: "94.2%", desc: "Optimización de recursos" },
+            { label: "Uptime Sistema", val: "99.99%", desc: "Disponibilidad garantizada" }
+        ]
+    },
+    agentes: {
+        chart: [
+            { name: 'Mon', val: 1200 }, { name: 'Tue', val: 4500 }, { name: 'Wed', val: 3200 },
+            { name: 'Thu', val: 5600 }, { name: 'Fri', val: 4100 }, { name: 'Sat', val: 2800 }, { name: 'Sun', val: 6200 },
+        ],
+        metrics: [
+            { label: "Agentes Activos", val: "24/24", desc: "Tasa de ejecución 100%" },
+            { label: "Interacciones IA", val: "1.2k", desc: "Consultas procesadas hoy" }
+        ]
+    },
+    analitica: {
+        chart: [
+            { name: 'Mon', val: 2000 }, { name: 'Tue', val: 2200 }, { name: 'Wed', val: 5800 },
+            { name: 'Thu', val: 4200 }, { name: 'Fri', val: 3100 }, { name: 'Sat', val: 1900 }, { name: 'Sun', val: 2100 },
+        ],
+        metrics: [
+            { label: "Precisión Modelo", val: "97.8%", desc: "Confianza en predicciones" },
+            { label: "Data Procesada", val: "4.2TB", desc: "Volumen diario global" }
+        ]
+    },
+    seguridad: {
+        chart: [
+            { name: 'Mon', val: 5000 }, { name: 'Tue', val: 4800 }, { name: 'Wed', val: 5100 },
+            { name: 'Thu', val: 4900 }, { name: 'Fri', val: 5200 }, { name: 'Sat', val: 5050 }, { name: 'Sun', val: 4950 },
+        ],
+        metrics: [
+            { label: "Amenazas Bloqueadas", val: "0", desc: "Perímetro totalmente seguro" },
+            { label: "Cifrado Datos", val: "AES-256", desc: "Protección grado militar" }
+        ]
+    }
+};
 
 const logos = [
     { Icon: Cloud, label: "AWS" },
@@ -25,23 +57,41 @@ const logos = [
     { Icon: Database, label: "Postgres" },
 ];
 
-function InteractiveBox({ label, description, className }: { label: string; description: string; className: string }) {
+function InteractiveBox({
+    label,
+    description,
+    className,
+    isActive,
+    onClick
+}: {
+    label: string;
+    description: string;
+    className: string;
+    isActive?: boolean;
+    onClick?: () => void;
+}) {
     return (
-        <div className={`relative group/item cursor-pointer ${className} transition-all duration-300`}>
+        <div
+            onClick={onClick}
+            className={`relative group/item cursor-pointer ${className} transition-all duration-300`}
+        >
             {/* Base Box */}
-            <div className="absolute inset-0 bg-white/[0.03] group-hover/item:bg-white/[0.08] border border-white/5 group-hover/item:border-bitte-blue/30 transition-all rounded shadow-inner" />
+            <div className={`absolute inset-0 transition-all rounded shadow-inner ${isActive
+                    ? "bg-bitte-blue/20 border border-bitte-blue/50"
+                    : "bg-white/[0.03] group-hover/item:bg-white/[0.08] border border-white/5 group-hover/item:border-bitte-blue/30"
+                }`} />
 
             {/* Pulse Hotspot Dot */}
             <div className="absolute top-2 right-2 flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-bitte-blue opacity-40"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-bitte-blue/60 group-hover/item:bg-bitte-blue"></span>
+                <span className={`animate-ping absolute inline-flex h-full w-full rounded-full bg-bitte-blue ${isActive ? 'opacity-60' : 'opacity-40'}`}></span>
+                <span className={`relative inline-flex rounded-full h-2 w-2 ${isActive ? 'bg-bitte-blue' : 'bg-bitte-blue/60 group-hover/item:bg-bitte-blue'}`}></span>
             </div>
 
             {/* Tooltip Content Card */}
             <motion.div
                 initial={{ opacity: 0, scale: 0.9, y: 10 }}
                 whileHover={{ opacity: 1, scale: 1, y: 0 }}
-                className="absolute -top-20 left-1/2 -translate-x-1/2 w-56 p-4 bg-[#151a24] border border-bitte-blue/20 rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] pointer-events-none z-50 opacity-0 backdrop-blur-xl"
+                className="absolute -top-20 left-1/2 -translate-x-1/2 w-64 p-4 bg-[#151a24] border border-bitte-blue/20 rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] pointer-events-none z-50 opacity-0 backdrop-blur-xl transition-opacity"
             >
                 <div className="flex items-center gap-2 mb-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-bitte-blue" />
@@ -57,6 +107,9 @@ function InteractiveBox({ label, description, className }: { label: string; desc
 }
 
 export default function PlatformPreview() {
+    const [activeView, setActiveView] = useState<keyof typeof VIEW_DATA>('dashboard');
+    const currentData = VIEW_DATA[activeView];
+
     return (
         <section className="py-24 relative z-10 overflow-hidden">
             <div className="container mx-auto px-6">
@@ -101,68 +154,97 @@ export default function PlatformPreview() {
                             {/* Sidebar */}
                             <div className="w-16 md:w-48 border-r border-white/5 pr-6 hidden md:block space-y-4">
                                 <InteractiveBox
-                                    label="Vista General"
-                                    description="Monitoreo de KPIs críticos del sistema en tiempo real."
-                                    className="h-8 w-full"
+                                    label="Dashboard General"
+                                    description="Visualización holística de operaciones e infraestructura."
+                                    className="h-10 w-full"
+                                    isActive={activeView === 'dashboard'}
+                                    onClick={() => setActiveView('dashboard')}
                                 />
                                 <InteractiveBox
-                                    label="Agentes IA"
-                                    description="Configuración y despliegue de agentes autónomos."
-                                    className="h-4 w-3/4"
+                                    label="Despliegue Agentes"
+                                    description="Gestión de orquestación para agentes autónomos."
+                                    className="h-5 w-3/4"
+                                    isActive={activeView === 'agentes'}
+                                    onClick={() => setActiveView('agentes')}
                                 />
                                 <InteractiveBox
-                                    label="Analítica"
-                                    description="Procesamiento de Big Data con modelos predictivos."
-                                    className="h-4 w-1/2"
+                                    label="Analítica Predictiva"
+                                    description="Modelado estocástico basado en datos históricos."
+                                    className="h-5 w-1/2"
+                                    isActive={activeView === 'analitica'}
+                                    onClick={() => setActiveView('analitica')}
                                 />
                                 <InteractiveBox
-                                    label="Logs"
-                                    description="Auditoría y trazabilidad completa de operaciones."
-                                    className="h-4 w-2/3"
+                                    label="Centro de Seguridad"
+                                    description="Monitoreo de tráfico malicioso y brechas."
+                                    className="h-5 w-2/3"
+                                    isActive={activeView === 'seguridad'}
+                                    onClick={() => setActiveView('seguridad')}
                                 />
                             </div>
 
                             {/* Main Pane */}
                             <div className="flex-1 flex flex-col gap-6">
-                                <div className="flex justify-between items-center">
-                                    <InteractiveBox
-                                        label="Proyecto Activo"
-                                        description="Data Pipeline v2.4 - Optimización de flujo."
-                                        className="h-10 w-1/3"
-                                    />
-                                    <InteractiveBox
-                                        label="Actualizar"
-                                        description="Desbloquea capacidades de IA Generativa."
-                                        className="h-10 w-20"
-                                    />
+                                <div className="flex justify-between items-center text-[10px] font-bold tracking-widest uppercase text-white/40">
+                                    <div className="flex items-center gap-2">
+                                        <div className="w-2 h-2 rounded-full bg-bitte-blue animate-pulse" />
+                                        <span>Proyecto: Data Pipeline v2.4</span>
+                                    </div>
+                                    <div className="bg-bitte-blue/10 border border-bitte-blue/20 px-3 py-1 rounded text-bitte-blue">
+                                        LIVE
+                                    </div>
                                 </div>
 
                                 {/* Chart */}
                                 <div className="h-48 rounded-xl bg-white/5 border border-white/5 p-4 relative overflow-hidden">
-                                    <ResponsiveContainer width="100%" height="100%">
-                                        <AreaChart data={data}>
-                                            <defs>
-                                                <linearGradient id="colorChart" x1="0" y1="0" x2="0" y2="1">
-                                                    <stop offset="5%" stopColor="#3B82F6" stopOpacity={0.3} />
-                                                    <stop offset="95%" stopColor="#3B82F6" stopOpacity={0} />
-                                                </linearGradient>
-                                            </defs>
-                                            <Area type="monotone" dataKey="val" stroke="#3B82F6" fillOpacity={1} fill="url(#colorChart)" />
-                                        </AreaChart>
-                                    </ResponsiveContainer>
+                                    <AnimatePresence mode="wait">
+                                        <motion.div
+                                            key={activeView}
+                                            initial={{ opacity: 0, x: 20 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            exit={{ opacity: 0, x: -20 }}
+                                            className="h-full w-full"
+                                        >
+                                            <ResponsiveContainer width="100%" height="100%">
+                                                <AreaChart data={currentData.chart}>
+                                                    <defs>
+                                                        <linearGradient id="colorChart" x1="0" y1="0" x2="0" y2="1">
+                                                            <stop offset="5%" stopColor="#3B82F6" stopOpacity={0.3} />
+                                                            <stop offset="95%" stopColor="#3B82F6" stopOpacity={0} />
+                                                        </linearGradient>
+                                                    </defs>
+                                                    <Area
+                                                        type="monotone"
+                                                        dataKey="val"
+                                                        stroke="#3B82F6"
+                                                        strokeWidth={3}
+                                                        fillOpacity={1}
+                                                        fill="url(#colorChart)"
+                                                        animationDuration={1000}
+                                                    />
+                                                </AreaChart>
+                                            </ResponsiveContainer>
+                                        </motion.div>
+                                    </AnimatePresence>
                                 </div>
 
                                 <div className="grid grid-cols-2 gap-4">
-                                    <InteractiveBox
-                                        label="Eficiencia Operativa"
-                                        description="Reducción del 45% en tiempos de respuesta mediante agentes autónomos optimizados."
-                                        className="h-24 bg-white/5 rounded-xl border border-white/5"
-                                    />
-                                    <InteractiveBox
-                                        label="Seguridad Blindada"
-                                        description="Protección de datos industriales bajo estándares SOC2 y cifrado de extremo a extremo."
-                                        className="h-24 bg-white/5 rounded-xl border border-white/5"
-                                    />
+                                    <AnimatePresence mode="wait">
+                                        {currentData.metrics.map((metric, i) => (
+                                            <motion.div
+                                                key={`${activeView}-${i}`}
+                                                initial={{ opacity: 0, y: 10 }}
+                                                animate={{ opacity: 1, y: 0 }}
+                                                exit={{ opacity: 0, y: -10 }}
+                                                transition={{ delay: i * 0.1 }}
+                                                className="h-24 bg-white/5 rounded-xl border border-white/5 p-4 flex flex-col justify-center"
+                                            >
+                                                <p className="text-[8px] font-bold text-bitte-blue uppercase tracking-widest mb-1">{metric.label}</p>
+                                                <p className="text-2xl font-black text-white">{metric.val}</p>
+                                                <p className="text-[8px] text-bitte-steel mt-1 uppercase tracking-tighter">{metric.desc}</p>
+                                            </motion.div>
+                                        ))}
+                                    </AnimatePresence>
                                 </div>
                             </div>
                         </div>
