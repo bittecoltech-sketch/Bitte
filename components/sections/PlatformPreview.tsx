@@ -131,7 +131,7 @@ export default function PlatformPreview() {
     const activePoint = hoveredIndex !== null ? currentData.chart[hoveredIndex] : null;
 
     return (
-        <section className="py-24 relative z-10 overflow-hidden">
+        <section id="datalab" className="py-24 relative z-10 overflow-hidden">
             <div className="container mx-auto px-6">
 
                 {/* Header */}
@@ -233,7 +233,7 @@ export default function PlatformPreview() {
                                                 <AreaChart
                                                     data={currentData.chart}
                                                     onMouseMove={(e) => {
-                                                        if (e.activeTooltipIndex !== undefined) {
+                                                        if (typeof e?.activeTooltipIndex === 'number') {
                                                             setHoveredIndex(e.activeTooltipIndex);
                                                         }
                                                     }}

@@ -9,7 +9,7 @@ import Image from "next/image";
 
 const navItems = [
     { name: "Servicios", href: "#services" },
-    { name: "Demos de Productos", href: "#playground" },
+    { name: "Demos de Productos", href: "#demos" },
     { name: "Data Lab", href: "#datalab" },
     { name: "Bitte Tech", href: "#education" },
 ];
@@ -55,7 +55,7 @@ export default function Navbar() {
                     {navItems.map((item) => (
                         <Link
                             key={item.name}
-                            href={item.href}
+                            href={item.href.startsWith("#") ? `/${item.href}` : item.href}
                             className="text-sm font-medium text-white/70 hover:text-white transition-colors relative group"
                         >
                             {item.name}
@@ -89,7 +89,7 @@ export default function Navbar() {
                         {navItems.map((item) => (
                             <Link
                                 key={item.name}
-                                href={item.href}
+                                href={item.href.startsWith("#") ? `/${item.href}` : item.href}
                                 onClick={() => setIsOpen(false)}
                                 className="text-lg font-medium text-white/80 hover:text-white"
                             >

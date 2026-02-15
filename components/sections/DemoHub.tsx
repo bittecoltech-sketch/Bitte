@@ -34,7 +34,7 @@ const demos = [
 
 export default function DemoHub() {
     return (
-        <section className="py-24 bg-black/20 border-y border-white/5">
+        <section id="demos" className="py-24 bg-black/20 border-y border-white/5">
             <div className="container mx-auto px-6">
                 <div className="text-center mb-16">
                     <h2 className="text-4xl font-bold mb-4">Experiencias Interactivas</h2>
