@@ -14,7 +14,8 @@ const VIEW_DATA = {
         metrics: [
             { label: "Eficiencia Operativa", val: "94.2%", desc: "Optimización de recursos" },
             { label: "Uptime Sistema", val: "99.99%", desc: "Disponibilidad garantizada" }
-        ]
+        ],
+        insight: "Optimiza la carga en horas pico para reducir un 12% adicional en costos operativos."
     },
     agentes: {
         chart: [
@@ -24,7 +25,8 @@ const VIEW_DATA = {
         metrics: [
             { label: "Agentes Activos", val: "24/24", desc: "Tasa de ejecución 100%" },
             { label: "Interacciones IA", val: "1.2k", desc: "Consultas procesadas hoy" }
-        ]
+        ],
+        insight: "3 agentes reportan alta latencia. Considera escalar el clúster regional para mantener el SLO."
     },
     analitica: {
         chart: [
@@ -34,7 +36,8 @@ const VIEW_DATA = {
         metrics: [
             { label: "Precisión Modelo", val: "97.8%", desc: "Confianza en predicciones" },
             { label: "Data Procesada", val: "4.2TB", desc: "Volumen diario global" }
-        ]
+        ],
+        insight: "Se detectó un patrón de anomalía en el flujo de Miércoles. Revisar integridad de fuentes."
     },
     seguridad: {
         chart: [
@@ -44,7 +47,8 @@ const VIEW_DATA = {
         metrics: [
             { label: "Amenazas Bloqueadas", val: "0", desc: "Perímetro totalmente seguro" },
             { label: "Cifrado Datos", val: "AES-256", desc: "Protección grado militar" }
-        ]
+        ],
+        insight: "Certificados SSL expiran en 5 días. La renovación automática está programada para mañana."
     }
 };
 
@@ -84,8 +88,8 @@ function InteractiveBox({
         >
             {/* Base Box */}
             <div className={`absolute inset-0 transition-all rounded shadow-inner -z-10 ${isActive
-                    ? "bg-bitte-blue/20 border border-bitte-blue/50"
-                    : "bg-white/[0.03] group-hover/item:bg-white/[0.08] border border-white/5 group-hover/item:border-bitte-blue/30"
+                ? "bg-bitte-blue/20 border border-bitte-blue/50"
+                : "bg-white/[0.03] group-hover/item:bg-white/[0.08] border border-white/5 group-hover/item:border-bitte-blue/30"
                 }`} />
 
             {/* Icon & Label */}
@@ -292,6 +296,31 @@ export default function PlatformPreview() {
                                         </motion.div>
                                     ))}
                                 </div>
+
+                                {/* AI Insight Banner */}
+                                <AnimatePresence mode="wait">
+                                    <motion.div
+                                        key={activeView}
+                                        initial={{ opacity: 0, y: 10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, y: -10 }}
+                                        className="mt-auto p-4 rounded-xl bg-bitte-blue/5 border border-bitte-blue/20 flex items-center gap-4 group/insight"
+                                    >
+                                        <div className="w-10 h-10 rounded-lg bg-bitte-blue/10 flex items-center justify-center flex-shrink-0 border border-bitte-blue/20 group-hover/insight:scale-110 transition-transform">
+                                            <Zap className="w-5 h-5 text-bitte-blue" />
+                                        </div>
+                                        <div className="flex-1">
+                                            <div className="flex items-center gap-2 mb-1">
+                                                <span className="text-[10px] font-bold text-bitte-blue uppercase tracking-widest">Consejo de IA</span>
+                                                <div className="h-1 w-1 rounded-full bg-bitte-blue/40" />
+                                                <span className="text-[10px] text-white/40 font-mono tracking-tighter">Procesado en tiempo real</span>
+                                            </div>
+                                            <p className="text-xs text-white/80 leading-relaxed font-medium">
+                                                {currentData.insight}
+                                            </p>
+                                        </div>
+                                    </motion.div>
+                                </AnimatePresence>
                             </div>
                         </div>
 
