@@ -110,14 +110,14 @@ export default function Hero() {
                 </motion.div>
 
                 {/* Slide Indicators */}
-                <div className="absolute bottom-12 flex gap-3 z-20">
+                <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-3 z-30">
                     {slides.map((_, i) => (
                         <button
                             key={i}
                             onClick={() => setCurrentSlide(i)}
-                            className={`h-1.5 transition-all duration-500 rounded-full box-content border border-transparent ${i === currentSlide
-                                    ? 'w-16 bg-white shadow-[0_0_10px_white]'
-                                    : 'w-4 bg-white/20 hover:bg-white/40'
+                            className={`h-1 transition-all duration-500 rounded-full box-content ${i === currentSlide
+                                ? 'w-12 bg-white shadow-[0_0_15px_rgba(255,255,255,0.8)]'
+                                : 'w-3 bg-white/20 hover:bg-white/40'
                                 }`}
                         />
                     ))}

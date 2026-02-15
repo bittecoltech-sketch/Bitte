@@ -32,13 +32,24 @@ export default function Navbar() {
         >
             <div className="container mx-auto px-6 h-20 flex items-center justify-between">
                 {/* Logo */}
-                <Link href="/" className="flex items-center gap-2 group">
-                    <div className="w-10 h-10 bg-gradient-to-tr from-bitte-blue via-bitte-green to-bitte-gold rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-lg group-hover:shadow-bitte-blue/50 transition-all">
-                        B
+                <Link href="/" className="flex items-center gap-3 group">
+                    <div className="relative w-10 h-10 overflow-hidden rounded-lg shadow-2xl group-hover:shadow-bitte-blue/40 transition-all duration-500">
+                        {/* Recreating the faceted B with gradients */}
+                        <div className="absolute inset-0 bg-gradient-to-tr from-bitte-blue via-bitte-green to-bitte-gold animate-gradient-slow" />
+                        <div className="absolute inset-0 flex items-center justify-center text-white font-black text-2xl z-10 drop-shadow-md">
+                            B
+                        </div>
+                        {/* Glossy overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent pointer-events-none" />
                     </div>
-                    <span className="text-xl font-bold tracking-tight text-white/90">
-                        BITTE<span className="text-bitte-blue">.</span>
-                    </span>
+                    <div className="flex flex-col">
+                        <span className="text-xl font-black tracking-tighter text-white leading-none">
+                            BITTE
+                        </span>
+                        <span className="text-[8px] font-bold tracking-[0.3em] text-bitte-blue leading-none mt-1">
+                            COLTECH
+                        </span>
+                    </div>
                 </Link>
 
                 {/* Desktop Nav */}
