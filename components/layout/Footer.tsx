@@ -3,8 +3,8 @@ export default function Footer() {
         <footer className="bg-bitte-base border-t border-white/5 py-12 mt-20">
             <div className="container mx-auto px-6 grid md:grid-cols-4 gap-8">
                 <div>
-                    <h3 className="text-2xl font-black tracking-tighter text-white mb-2">BITTE</h3>
-                    <p className="text-[10px] font-bold tracking-[0.3em] text-bitte-blue uppercase mb-4">Coltech</p>
+                    <h3 className="text-3xl font-[900] tracking-tighter text-white mb-1">BITTE</h3>
+                    <p className="text-[10px] font-black tracking-[0.4em] text-bitte-blue uppercase mb-6 opacity-80">Coltech</p>
                     <p className="text-bitte-steel text-sm">
                         Bridge to Technology.
                         <br />
