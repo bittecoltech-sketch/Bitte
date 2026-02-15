@@ -64,6 +64,7 @@ function InteractiveBox({
     description,
     className,
     isActive,
+    icon: Icon,
     onClick,
     onMouseEnter
 }: {
@@ -71,6 +72,7 @@ function InteractiveBox({
     description: string;
     className: string;
     isActive?: boolean;
+    icon?: any;
     onClick?: () => void;
     onMouseEnter?: () => void;
 }) {
@@ -78,13 +80,19 @@ function InteractiveBox({
         <div
             onClick={onClick}
             onMouseEnter={onMouseEnter}
-            className={`relative group/item cursor-pointer ${className} transition-all duration-300`}
+            className={`relative group/item cursor-pointer ${className} transition-all duration-300 flex items-center px-3 gap-3`}
         >
             {/* Base Box */}
-            <div className={`absolute inset-0 transition-all rounded shadow-inner ${isActive
-                ? "bg-bitte-blue/20 border border-bitte-blue/50"
-                : "bg-white/[0.03] group-hover/item:bg-white/[0.08] border border-white/5 group-hover/item:border-bitte-blue/30"
+            <div className={`absolute inset-0 transition-all rounded shadow-inner -z-10 ${isActive
+                    ? "bg-bitte-blue/20 border border-bitte-blue/50"
+                    : "bg-white/[0.03] group-hover/item:bg-white/[0.08] border border-white/5 group-hover/item:border-bitte-blue/30"
                 }`} />
+
+            {/* Icon & Label */}
+            {Icon && <Icon className={`w-3.5 h-3.5 transition-colors ${isActive ? 'text-bitte-blue' : 'text-white/40 group-hover/item:text-white/70'}`} />}
+            <span className={`text-[10px] font-medium transition-colors hidden md:block whitespace-nowrap ${isActive ? 'text-white' : 'text-white/30 group-hover/item:text-white/60'}`}>
+                {label}
+            </span>
 
             {/* Pulse Hotspot Dot */}
             <div className="absolute top-2 right-2 flex h-2 w-2">
@@ -162,30 +170,34 @@ export default function PlatformPreview() {
                             {/* Sidebar */}
                             <div className="w-16 md:w-48 border-r border-white/5 pr-6 hidden md:block space-y-4">
                                 <InteractiveBox
-                                    label="Dashboard General"
+                                    label="Dashboard"
                                     description="Visualización holística de operaciones e infraestructura."
                                     className="h-10 w-full"
+                                    icon={BarChart3}
                                     isActive={activeView === 'dashboard'}
                                     onMouseEnter={() => setActiveView('dashboard')}
                                 />
                                 <InteractiveBox
-                                    label="Despliegue Agentes"
+                                    label="Agentes IA"
                                     description="Gestión de orquestación para agentes autónomos."
-                                    className="h-5 w-3/4"
+                                    className="h-10 w-full"
+                                    icon={Zap}
                                     isActive={activeView === 'agentes'}
                                     onMouseEnter={() => setActiveView('agentes')}
                                 />
                                 <InteractiveBox
-                                    label="Analítica Predictiva"
+                                    label="Analítica"
                                     description="Modelado estocástico basado en datos históricos."
-                                    className="h-5 w-1/2"
+                                    className="h-10 w-full"
+                                    icon={Activity}
                                     isActive={activeView === 'analitica'}
                                     onMouseEnter={() => setActiveView('analitica')}
                                 />
                                 <InteractiveBox
-                                    label="Centro de Seguridad"
+                                    label="Seguridad"
                                     description="Monitoreo de tráfico malicioso y brechas."
-                                    className="h-5 w-2/3"
+                                    className="h-10 w-full"
+                                    icon={Lock}
                                     isActive={activeView === 'seguridad'}
                                     onMouseEnter={() => setActiveView('seguridad')}
                                 />
