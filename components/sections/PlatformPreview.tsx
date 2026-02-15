@@ -64,17 +64,20 @@ function InteractiveBox({
     description,
     className,
     isActive,
-    onClick
+    onClick,
+    onMouseEnter
 }: {
     label: string;
     description: string;
     className: string;
     isActive?: boolean;
     onClick?: () => void;
+    onMouseEnter?: () => void;
 }) {
     return (
         <div
             onClick={onClick}
+            onMouseEnter={onMouseEnter}
             className={`relative group/item cursor-pointer ${className} transition-all duration-300`}
         >
             {/* Base Box */}
@@ -110,7 +113,10 @@ function InteractiveBox({
 
 export default function PlatformPreview() {
     const [activeView, setActiveView] = useState<keyof typeof VIEW_DATA>('dashboard');
+    const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+
     const currentData = VIEW_DATA[activeView];
+    const activePoint = hoveredIndex !== null ? currentData.chart[hoveredIndex] : null;
 
     return (
         <section className="py-24 relative z-10 overflow-hidden">
@@ -160,28 +166,28 @@ export default function PlatformPreview() {
                                     description="Visualización holística de operaciones e infraestructura."
                                     className="h-10 w-full"
                                     isActive={activeView === 'dashboard'}
-                                    onClick={() => setActiveView('dashboard')}
+                                    onMouseEnter={() => setActiveView('dashboard')}
                                 />
                                 <InteractiveBox
                                     label="Despliegue Agentes"
                                     description="Gestión de orquestación para agentes autónomos."
                                     className="h-5 w-3/4"
                                     isActive={activeView === 'agentes'}
-                                    onClick={() => setActiveView('agentes')}
+                                    onMouseEnter={() => setActiveView('agentes')}
                                 />
                                 <InteractiveBox
                                     label="Analítica Predictiva"
                                     description="Modelado estocástico basado en datos históricos."
                                     className="h-5 w-1/2"
                                     isActive={activeView === 'analitica'}
-                                    onClick={() => setActiveView('analitica')}
+                                    onMouseEnter={() => setActiveView('analitica')}
                                 />
                                 <InteractiveBox
                                     label="Centro de Seguridad"
                                     description="Monitoreo de tráfico malicioso y brechas."
                                     className="h-5 w-2/3"
                                     isActive={activeView === 'seguridad'}
-                                    onClick={() => setActiveView('seguridad')}
+                                    onMouseEnter={() => setActiveView('seguridad')}
                                 />
                             </div>
 
@@ -208,13 +214,25 @@ export default function PlatformPreview() {
                                             className="h-full w-full"
                                         >
                                             <ResponsiveContainer width="100%" height="100%">
-                                                <AreaChart data={currentData.chart}>
+                                                <AreaChart
+                                                    data={currentData.chart}
+                                                    onMouseMove={(e) => {
+                                                        if (e.activeTooltipIndex !== undefined) {
+                                                            setHoveredIndex(e.activeTooltipIndex);
+                                                        }
+                                                    }}
+                                                    onMouseLeave={() => setHoveredIndex(null)}
+                                                >
                                                     <defs>
                                                         <linearGradient id="colorChart" x1="0" y1="0" x2="0" y2="1">
                                                             <stop offset="5%" stopColor="#3B82F6" stopOpacity={0.3} />
                                                             <stop offset="95%" stopColor="#3B82F6" stopOpacity={0} />
                                                         </linearGradient>
                                                     </defs>
+                                                    <Tooltip
+                                                        content={() => null}
+                                                        active={true}
+                                                    />
                                                     <Area
                                                         type="monotone"
                                                         dataKey="val"
@@ -223,6 +241,7 @@ export default function PlatformPreview() {
                                                         fillOpacity={1}
                                                         fill="url(#colorChart)"
                                                         animationDuration={1000}
+                                                        activeDot={{ r: 6, strokeWidth: 0, fill: '#3B82F6 shadow-[0_0_10px_#3B82F6]' }}
                                                     />
                                                 </AreaChart>
                                             </ResponsiveContainer>
@@ -231,22 +250,35 @@ export default function PlatformPreview() {
                                 </div>
 
                                 <div className="grid grid-cols-2 gap-4">
-                                    <AnimatePresence mode="wait">
-                                        {currentData.metrics.map((metric, i) => (
-                                            <motion.div
-                                                key={`${activeView}-${i}`}
-                                                initial={{ opacity: 0, y: 10 }}
+                                    {currentData.metrics.map((metric, i) => (
+                                        <motion.div
+                                            key={`${activeView}-${i}`}
+                                            className="h-24 bg-white/5 rounded-xl border border-white/5 p-4 flex flex-col justify-center relative overflow-hidden"
+                                        >
+                                            <p className="text-[8px] font-bold text-bitte-blue uppercase tracking-widest mb-1">{metric.label}</p>
+                                            <motion.p
+                                                key={activePoint ? `${activePoint.val}-${i}` : 'static'}
+                                                initial={{ opacity: 0.5, y: 5 }}
                                                 animate={{ opacity: 1, y: 0 }}
-                                                exit={{ opacity: 0, y: -10 }}
-                                                transition={{ delay: i * 0.1 }}
-                                                className="h-24 bg-white/5 rounded-xl border border-white/5 p-4 flex flex-col justify-center"
+                                                className="text-2xl font-black text-white"
                                             >
-                                                <p className="text-[8px] font-bold text-bitte-blue uppercase tracking-widest mb-1">{metric.label}</p>
-                                                <p className="text-2xl font-black text-white">{metric.val}</p>
-                                                <p className="text-[8px] text-bitte-steel mt-1 uppercase tracking-tighter">{metric.desc}</p>
-                                            </motion.div>
-                                        ))}
-                                    </AnimatePresence>
+                                                {activePoint
+                                                    ? `${(activePoint.val / (i === 0 ? 50 : 100)).toFixed(1)}${i === 0 ? '%' : 'k'}`
+                                                    : metric.val
+                                                }
+                                            </motion.p>
+                                            <p className="text-[8px] text-bitte-steel mt-1 uppercase tracking-tighter">
+                                                {activePoint ? `Dato Real: ${activePoint.name}` : metric.desc}
+                                            </p>
+
+                                            {activePoint && (
+                                                <motion.div
+                                                    layoutId="glow"
+                                                    className="absolute inset-0 bg-bitte-blue/5 animate-pulse"
+                                                />
+                                            )}
+                                        </motion.div>
+                                    ))}
                                 </div>
                             </div>
                         </div>
