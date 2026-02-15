@@ -1,9 +1,21 @@
+import Image from "next/image";
+
 export default function Footer() {
     return (
         <footer className="bg-bitte-base border-t border-white/5 py-12 mt-20">
             <div className="container mx-auto px-6 grid md:grid-cols-4 gap-8">
                 <div>
-                    <h3 className="text-3xl font-[900] tracking-tighter text-white mb-1">BITTE</h3>
+                    <div className="flex items-center gap-3 mb-4">
+                        <div className="relative w-10 h-10">
+                            <Image
+                                src="/logo.png"
+                                alt="BITTE Logo"
+                                fill
+                                className="object-contain"
+                            />
+                        </div>
+                        <h3 className="text-3xl font-[900] tracking-tighter text-white">BITTE</h3>
+                    </div>
                     <p className="text-[10px] font-black tracking-[0.4em] text-bitte-blue uppercase mb-6 opacity-80">Coltech</p>
                     <p className="text-bitte-steel text-sm">
                         Bridge to Technology.
