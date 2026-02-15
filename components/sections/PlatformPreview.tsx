@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Play, Cloud, Database, Cpu, Shield, Globe, Server, Activity, Zap, Lock, BarChart3, Settings } from "lucide-react";
@@ -77,8 +79,8 @@ function InteractiveBox({
         >
             {/* Base Box */}
             <div className={`absolute inset-0 transition-all rounded shadow-inner ${isActive
-                    ? "bg-bitte-blue/20 border border-bitte-blue/50"
-                    : "bg-white/[0.03] group-hover/item:bg-white/[0.08] border border-white/5 group-hover/item:border-bitte-blue/30"
+                ? "bg-bitte-blue/20 border border-bitte-blue/50"
+                : "bg-white/[0.03] group-hover/item:bg-white/[0.08] border border-white/5 group-hover/item:border-bitte-blue/30"
                 }`} />
 
             {/* Pulse Hotspot Dot */}
