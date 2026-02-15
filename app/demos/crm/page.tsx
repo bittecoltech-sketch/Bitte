@@ -48,6 +48,7 @@ const INITIAL_CLIENTS = [
 export default function CRMPage() {
     const [activeTab, setActiveTab] = useState("clientes");
     const [salesFilter, setSalesFilter] = useState("30d");
+    const [selectedClient, setSelectedClient] = useState(INITIAL_CLIENTS[2].name); // Default to Alpha
     const [clients, setClients] = useState(INITIAL_CLIENTS);
     const [events, setEvents] = useState([
         { time: "09:30 AM", title: "Review con TechCorp", type: "Reunión Técnica", color: "border-blue-500" },
@@ -76,6 +77,7 @@ export default function CRMPage() {
         setNotification(`Cargando detalles de ${company}...`);
         setTimeout(() => {
             setNotification(`Detalles de ${company} cargados con éxito`);
+            setSelectedClient(company);
             setTimeout(() => setNotification(null), 2000);
         }, 1500);
     };
@@ -128,104 +130,134 @@ export default function CRMPage() {
         setSettings(prev => ({ ...prev, [key]: !prev[key] }));
     };
 
-    const renderClientsView = () => (
-        <div className="space-y-6">
-            <div className="bg-[#151a24] border border-white/5 rounded-2xl overflow-hidden shadow-2xl">
-                <div className="overflow-x-auto">
+    const CLIENT_INSIGHTS: Record<string, { text: string; probability: string }> = {
+        "TechCorp Industries": {
+            text: "Negociación avanzada. Se requiere revisión de contrato legal antes del viernes.",
+            probability: "85%"
+        },
+        "Global Logistics": {
+            text: "Propuesta enviada. El cliente solicitó un descuento por volumen. Evaluar margen.",
+            probability: "60%"
+        },
+        "Alpha Manufacturing": {
+            text: "Alta probabilidad de cierre. Se recomienda programar una reunión técnica final.",
+            probability: "92%"
+        },
+        "Solaris Energy": {
+            text: "Nuevo lead cualificado. Necesita presentación de capacidades de IA Generativa.",
+            probability: "45%"
+        }
+    };
+
+    const renderClientsView = () => {
+        const currentInsight = CLIENT_INSIGHTS[selectedClient] || {
+            text: "Cliente recién añadido. Analizando datos para generar insight...",
+            probability: "10-20%"
+        };
+
+        return (
+            <div className="space-y-6">
+                <div className="bg-[#151a24] border border-white/5 rounded-2xl overflow-hidden shadow-2xl">
                     <table className="w-full text-left border-collapse">
-                        <thead className="bg-[#1c222d] text-white/40 uppercase text-[10px] font-bold tracking-[0.1em]">
-                            <tr>
-                                <th className="px-6 py-4">Empresa</th>
-                                <th className="px-6 py-4">Estado</th>
-                                <th className="px-6 py-4">Valor</th>
-                                <th className="px-6 py-4">Probabilidad IA</th>
+                        <thead>
+                            <tr className="border-b border-white/5 bg-white/[0.02]">
+                                <th className="px-6 py-4 text-[10px] font-bold text-white/30 uppercase tracking-widest">Empresa</th>
+                                <th className="px-6 py-4 text-[10px] font-bold text-white/30 uppercase tracking-widest">Estado</th>
+                                <th className="px-6 py-4 text-[10px] font-bold text-white/30 uppercase tracking-widest text-right lg:text-left">Valor</th>
+                                <th className="px-6 py-4 text-[10px] font-bold text-white/30 uppercase tracking-widest hidden md:table-cell">Probabilidad IA</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-white/5">
                             <AnimatePresence initial={false}>
-                                {clients.map((row) => (
+                                {clients.map((client, i) => (
                                     <motion.tr
                                         layout
                                         initial={{ opacity: 0, x: -10 }}
                                         animate={{ opacity: 1, x: 0 }}
-                                        key={row.name}
-                                        onClick={() => handleRowClick(row.name)}
-                                        className="group cursor-pointer transition-colors duration-150 relative bg-transparent hover:bg-white/[0.02]"
+                                        key={client.name}
+                                        onClick={() => handleRowClick(client.name)}
+                                        className={cn(
+                                            "group cursor-pointer transition-colors duration-150 relative bg-transparent hover:bg-white/[0.02]",
+                                            selectedClient === client.name && "bg-blue-500/5"
+                                        )}
                                     >
                                         <td className="px-6 py-5">
                                             <div className="flex items-center gap-3">
                                                 <div className="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-400 group-hover:bg-blue-500 group-hover:text-white transition-all">
                                                     <Building2 className="w-4 h-4" />
                                                 </div>
-                                                <span className="font-semibold text-white/90 group-hover:text-white transition-all">{row.name}</span>
+                                                <span className="font-semibold text-white/90 group-hover:text-white transition-all">{client.name}</span>
                                             </div>
                                         </td>
                                         <td className="px-6 py-5">
                                             <span className={cn(
                                                 "px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-white/5 border border-white/10 text-white/70",
-                                                row.status === "Cierre" && "text-emerald-400 bg-emerald-400/5 border-emerald-400/10",
-                                                row.status === "Negociación" && "text-blue-400 bg-blue-400/5 border-blue-400/10",
-                                                row.status === "Propuesta" && "text-amber-400 bg-amber-400/5 border-amber-400/10"
+                                                client.status === "Cierre" && "text-emerald-400 bg-emerald-400/5 border-emerald-400/10",
+                                                client.status === "Negociación" && "text-blue-400 bg-blue-400/5 border-blue-400/10",
+                                                client.status === "Propuesta" && "text-amber-400 bg-amber-400/5 border-amber-400/10"
                                             )}>
-                                                {row.status}
+                                                {client.status}
                                             </span>
                                         </td>
-                                        <td className="px-6 py-5 font-mono text-white/80 tabular-nums">
-                                            ${row.val.toLocaleString()}
-                                        </td>
-                                        <td className="px-6 py-5">
+                                        <td className="px-6 py-4 font-bold tracking-tight text-right lg:text-left">${client.val.toLocaleString()}</td>
+                                        <td className="px-6 py-4 hidden md:table-cell">
                                             <div className="flex items-center gap-3">
-                                                <div className="flex-1 h-1.5 bg-white/5 rounded-full overflow-hidden w-24">
+                                                <div className="flex-1 h-1.5 bg-white/5 rounded-full overflow-hidden">
                                                     <motion.div
                                                         initial={{ width: 0 }}
-                                                        animate={{ width: `${row.prob}%` }}
-                                                        transition={{ duration: 1, ease: "easeOut" }}
+                                                        animate={{ width: `${client.prob}%` }}
                                                         className={cn(
-                                                            "h-full rounded-full",
-                                                            row.prob >= 80 ? "bg-emerald-500" : row.prob >= 60 ? "bg-amber-500" : "bg-slate-500"
+                                                            "h-full rounded-full transition-all duration-1000",
+                                                            client.prob > 80 ? "bg-emerald-500" :
+                                                                client.prob > 50 ? "bg-amber-500" : "bg-white/20"
                                                         )}
                                                     />
                                                 </div>
-                                                <span className={cn("text-xs font-bold", row.prob >= 80 ? "text-emerald-400" : "text-white/60")}>
-                                                    {row.prob}%
-                                                </span>
+                                                <span className={cn(
+                                                    "text-[10px] font-bold min-w-[30px]",
+                                                    client.prob > 80 ? "text-emerald-500" : "text-white/30"
+                                                )}>{client.prob}%</span>
                                             </div>
                                         </td>
+                                        {selectedClient === client.name && (
+                                            <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-blue-500 rounded-r-full" />
+                                        )}
                                     </motion.tr>
                                 ))}
                             </AnimatePresence>
                         </tbody>
                     </table>
                 </div>
+
+                {/* IA Insight Banner - Glassmorphism */}
+                <motion.div
+                    key={selectedClient}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="relative p-6 rounded-2xl overflow-hidden group shadow-2xl mt-12"
+                >
+                    {/* Background with blur and color overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#ff4d4d]/10 via-transparent to-transparent backdrop-blur-xl border border-white/10" />
+                    <div className="absolute inset-0 bg-[radial-memory(circle_at_top_left,rgba(255,77,77,0.1),transparent_70%)] opacity-30" />
+
+                    <div className="relative flex items-center gap-5">
+                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#ff4d4d] to-[#c73e3e] flex items-center justify-center shadow-lg shadow-[#ff4d4d]/20">
+                            <Sparkles className="w-6 h-6 text-white" />
+                        </div>
+                        <div className="flex-1">
+                            <h4 className="text-lg font-bold text-white mb-1 flex items-center gap-2">
+                                Insight de IA
+                                <span className="text-[10px] bg-white/10 px-1.5 py-0.5 rounded text-white/60 font-medium">RECOMENDADO</span>
+                            </h4>
+                            <p className="text-white/70 leading-relaxed max-w-2xl">
+                                <span className="text-white font-semibold">{selectedClient}</span> tiene una probabilidad de cierre del ({currentInsight.probability}). {currentInsight.text}
+                            </p>
+                        </div>
+                    </div>
+                </motion.div>
             </div>
-
-            {/* IA Insight Banner - Glassmorphism */}
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="relative p-6 rounded-2xl overflow-hidden group shadow-2xl mt-12"
-            >
-                {/* Background with blur and color overlay */}
-                <div className="absolute inset-0 bg-gradient-to-br from-[#ff4d4d]/10 via-transparent to-transparent backdrop-blur-xl border border-white/10" />
-                <div className="absolute inset-0 bg-[radial-memory(circle_at_top_left,rgba(255,77,77,0.1),transparent_70%)] opacity-30" />
-
-                <div className="relative flex items-center gap-5">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#ff4d4d] to-[#c73e3e] flex items-center justify-center shadow-lg shadow-[#ff4d4d]/20">
-                        <Sparkles className="w-6 h-6 text-white" />
-                    </div>
-                    <div className="flex-1">
-                        <h4 className="text-lg font-bold text-white mb-1 flex items-center gap-2">
-                            Insight de IA
-                            <span className="text-[10px] bg-white/10 px-1.5 py-0.5 rounded text-white/60 font-medium">RECOMENDADO</span>
-                        </h4>
-                        <p className="text-white/70 leading-relaxed max-w-2xl">
-                            <span className="text-white font-semibold">Alpha Manufacturing</span> tiene una alta probabilidad de cierre (92%). Se recomienda programar una reunión técnica para definir los entregables finales.
-                        </p>
-                    </div>
-                </div>
-            </motion.div>
-        </div>
-    );
+        );
+    };
 
 
     const getChartData = () => {
