@@ -47,6 +47,7 @@ const INITIAL_CLIENTS = [
 
 export default function CRMPage() {
     const [activeTab, setActiveTab] = useState("clientes");
+    const [salesFilter, setSalesFilter] = useState("30d");
     const [clients, setClients] = useState(INITIAL_CLIENTS);
     const [events, setEvents] = useState([
         { time: "09:30 AM", title: "Review con TechCorp", type: "Reunión Técnica", color: "border-blue-500" },
@@ -226,13 +227,23 @@ export default function CRMPage() {
         </div>
     );
 
+
+    const getChartData = () => {
+        const data: Record<string, number[]> = {
+            "7d": [20, 35, 15, 40, 30, 45, 25],
+            "30d": [40, 65, 45, 90, 100, 80, 55, 70, 85, 95, 60, 75],
+            "90d": [10, 25, 40, 30, 55, 70, 85, 60, 45, 90, 100, 80, 55, 70, 85, 95, 60, 75, 40, 65, 45, 90, 100, 80]
+        };
+        return data[salesFilter] || data["30d"];
+    };
+
     const renderSalesView = () => (
         <div className="space-y-8">
             {/* Sales Stats Overlay Cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {[
-                    { label: "Monto Total", val: "$185,400", trend: "+12%", icon: DollarSign, color: "text-emerald-400" },
-                    { label: "Ventas Cerradas", val: "24", trend: "+5", icon: TrendingUp, color: "text-blue-400" },
+                    { label: "Monto Total", val: salesFilter === "7d" ? "$42,100" : salesFilter === "90d" ? "$580,200" : "$185,400", trend: "+12%", icon: DollarSign, color: "text-emerald-400" },
+                    { label: "Ventas Cerradas", val: salesFilter === "7d" ? "4" : salesFilter === "90d" ? "72" : "24", trend: "+5", icon: TrendingUp, color: "text-blue-400" },
                     { label: "Pipeline Activo", val: "$450,000", trend: "7 leads", icon: Sparkles, color: "text-[#ff4d4d]" },
                 ].map((stat, i) => (
                     <motion.div
@@ -258,35 +269,53 @@ export default function CRMPage() {
             {/* Performance Chart Placeholder (Styled) */}
             <div className="bg-[#151a24] border border-white/5 rounded-2xl p-6 relative overflow-hidden">
                 <div className="flex items-center justify-between mb-8">
-                    <h3 className="font-bold text-lg">Rendimiento Mensual</h3>
+                    <h3 className="font-bold text-lg">Rendimiento {salesFilter === "7d" ? "Semanal" : salesFilter === "90d" ? "Trimestral" : "Mensual"}</h3>
                     <div className="flex gap-2">
                         {['7d', '30d', '90d'].map(t => (
-                            <button key={t} className="px-3 py-1 rounded-lg bg-white/5 border border-white/10 text-[10px] font-bold hover:bg-white/10 transition-all">{t}</button>
+                            <button
+                                key={t}
+                                onClick={() => setSalesFilter(t)}
+                                className={cn(
+                                    "px-3 py-1 rounded-lg border text-[10px] font-bold transition-all",
+                                    salesFilter === t
+                                        ? "bg-blue-600 border-blue-600 text-white shadow-lg shadow-blue-600/20"
+                                        : "bg-white/5 border-white/10 text-white/40 hover:bg-white/10"
+                                )}
+                            >
+                                {t}
+                            </button>
                         ))}
                     </div>
                 </div>
-                <div className="h-48 flex items-end gap-2 lg:gap-4 px-2">
-                    {[40, 65, 45, 90, 100, 80, 55, 70, 85, 95, 60, 75].map((h, i) => (
-                        <motion.div
-                            key={i}
-                            initial={{ height: 0 }}
-                            animate={{ height: `${h}%` }}
-                            transition={{ delay: i * 0.05, duration: 1 }}
-                            className={cn(
-                                "flex-1 rounded-t-lg transition-all relative group",
-                                i === 4 ? "bg-blue-500 shadow-[0_0_20px_rgba(59,130,246,0.5)]" : "bg-white/10"
-                            )}
-                        >
-                            <div className="absolute -top-10 left-1/2 -translate-x-1/2 bg-[#1c222d] px-2 py-1 rounded text-[10px] opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
-                                ${h}k
-                            </div>
-                        </motion.div>
-                    ))}
+                <div className="h-48 flex items-end gap-1.5 lg:gap-3 px-2">
+                    <AnimatePresence mode="popLayout">
+                        {getChartData().map((h, i) => (
+                            <motion.div
+                                key={`${salesFilter}-${i}`}
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ height: `${h}%`, opacity: 1 }}
+                                exit={{ height: 0, opacity: 0 }}
+                                transition={{ delay: i * 0.02, duration: 0.5 }}
+                                className={cn(
+                                    "flex-1 rounded-t-sm lg:rounded-t-lg transition-all relative group",
+                                    h > 90 ? "bg-blue-500 shadow-[0_0_20px_rgba(59,130,246,0.5)]" : "bg-white/10 hover:bg-white/20"
+                                )}
+                            >
+                                <div className="absolute -top-10 left-1/2 -translate-x-1/2 bg-[#1c222d] px-2 py-1 rounded text-[10px] opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-20">
+                                    ${h}k
+                                </div>
+                            </motion.div>
+                        ))}
+                    </AnimatePresence>
                 </div>
                 <div className="flex justify-between mt-4 text-[10px] font-bold text-white/20 uppercase px-2">
-                    <span>Ene</span>
-                    <span>Jun</span>
-                    <span>Dic</span>
+                    {salesFilter === "7d" ? (
+                        <><span>Lun</span><span>Dom</span></>
+                    ) : salesFilter === "90d" ? (
+                        <><span>Ene</span><span>Mar</span></>
+                    ) : (
+                        <><span>Sem 1</span><span>Sem 4</span></>
+                    )}
                 </div>
             </div>
 
