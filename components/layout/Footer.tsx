@@ -16,7 +16,6 @@ export default function Footer() {
                         </div>
                         <h3 className="text-3xl font-[900] tracking-tighter text-white">BITTE</h3>
                     </div>
-                    <p className="text-[10px] font-black tracking-[0.4em] text-bitte-blue uppercase mb-6 opacity-80">Coltech</p>
                     <p className="text-bitte-steel text-sm">
                         Bridge to Technology.
                         <br />

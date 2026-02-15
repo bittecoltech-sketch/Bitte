@@ -9,7 +9,7 @@ import Image from "next/image";
 
 const navItems = [
     { name: "Servicios", href: "#services" },
-    { name: "Playground", href: "#playground" },
+    { name: "Demos de Productos", href: "#playground" },
     { name: "Data Lab", href: "#datalab" },
     { name: "Bitte Tech", href: "#education" },
 ];
@@ -47,9 +47,6 @@ export default function Navbar() {
                         <span className="text-2xl font-[900] tracking-tighter text-white leading-none">
                             BITTE
                         </span>
-                        <span className="text-[9px] font-black tracking-[0.4em] text-bitte-blue leading-none mt-1.5 opacity-80 uppercase">
-                            Coltech
-                        </span>
                     </div>
                 </Link>
 
@@ -65,9 +62,11 @@ export default function Navbar() {
                             <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-bitte-blue transition-all group-hover:w-full" />
                         </Link>
                     ))}
-                    <Button variant="glow" size="sm" className="ml-4">
-                        Contactar <ArrowRight className="w-4 h-4 ml-2" />
-                    </Button>
+                    <Link href="/contactar">
+                        <Button variant="glow" size="sm" className="ml-4">
+                            Contactar <ArrowRight className="w-4 h-4 ml-2" />
+                        </Button>
+                    </Link>
                 </div>
 
                 {/* Mobile Toggle */}
@@ -97,9 +96,11 @@ export default function Navbar() {
                                 {item.name}
                             </Link>
                         ))}
-                        <Button variant="glow" className="w-full">
-                            Iniciar Proyecto
-                        </Button>
+                        <Link href="/contactar" className="w-full">
+                            <Button variant="glow" className="w-full">
+                                Contactar
+                            </Button>
+                        </Link>
                     </div>
                 </motion.div>
             )}
