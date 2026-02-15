@@ -25,6 +25,25 @@ const logos = [
     { Icon: Database, label: "Postgres" },
 ];
 
+function InteractiveBox({ label, description, className }: { label: string; description: string; className: string }) {
+    return (
+        <div className={`relative group/item cursor-help ${className}`}>
+            <div className="absolute inset-0 bg-white/[0.03] group-hover/item:bg-white/[0.08] transition-colors rounded" />
+
+            {/* Tooltip */}
+            <motion.div
+                initial={{ opacity: 0, scale: 0.9, y: 10 }}
+                whileHover={{ opacity: 1, scale: 1, y: 0 }}
+                className="absolute -top-16 left-1/2 -translate-x-1/2 w-48 p-3 bg-bitte-base border border-white/10 rounded-lg shadow-2xl pointer-events-none z-50 text-[10px] leading-tight opacity-0"
+            >
+                <p className="font-bold text-bitte-blue mb-1 uppercase tracking-widest">{label}</p>
+                <p className="text-white/60">{description}</p>
+                <div className="absolute top-full left-1/2 -translate-x-1/2 w-2 h-2 bg-bitte-base border-r border-b border-white/10 rotate-45 -mt-1" />
+            </motion.div>
+        </div>
+    );
+}
+
 export default function PlatformPreview() {
     return (
         <section className="py-24 relative z-10 overflow-hidden">
@@ -68,18 +87,42 @@ export default function PlatformPreview() {
                         {/* Content Mockup */}
                         <div className="flex-1 flex p-6 gap-6 relative">
                             {/* Sidebar */}
-                            <div className="w-16 md:w-48 border-r border-white/5 pr-6 hidden md:block space-y-4 opacity-50">
-                                <div className="h-8 w-full bg-white/10 rounded" />
-                                <div className="h-4 w-3/4 bg-white/5 rounded" />
-                                <div className="h-4 w-1/2 bg-white/5 rounded" />
-                                <div className="h-4 w-2/3 bg-white/5 rounded" />
+                            <div className="w-16 md:w-48 border-r border-white/5 pr-6 hidden md:block space-y-4">
+                                <InteractiveBox
+                                    label="Vista General"
+                                    description="Monitoreo de KPIs críticos del sistema en tiempo real."
+                                    className="h-8 w-full"
+                                />
+                                <InteractiveBox
+                                    label="Agentes IA"
+                                    description="Configuración y despliegue de agentes autónomos."
+                                    className="h-4 w-3/4"
+                                />
+                                <InteractiveBox
+                                    label="Analítica"
+                                    description="Procesamiento de Big Data con modelos predictivos."
+                                    className="h-4 w-1/2"
+                                />
+                                <InteractiveBox
+                                    label="Logs"
+                                    description="Auditoría y trazabilidad completa de operaciones."
+                                    className="h-4 w-2/3"
+                                />
                             </div>
 
                             {/* Main Pane */}
                             <div className="flex-1 flex flex-col gap-6">
                                 <div className="flex justify-between items-center">
-                                    <div className="h-10 w-1/3 bg-white/10 rounded" />
-                                    <div className="h-10 w-20 bg-bitte-blue rounded" />
+                                    <InteractiveBox
+                                        label="Proyecto Activo"
+                                        description="Data Pipeline v2.4 - Optimización de flujo."
+                                        className="h-10 w-1/3"
+                                    />
+                                    <InteractiveBox
+                                        label="Actualizar"
+                                        description="Desbloquea capacidades de IA Generativa."
+                                        className="h-10 w-20"
+                                    />
                                 </div>
 
                                 {/* Chart */}
@@ -98,8 +141,16 @@ export default function PlatformPreview() {
                                 </div>
 
                                 <div className="grid grid-cols-2 gap-4">
-                                    <div className="h-24 bg-white/5 rounded-xl border border-white/5" />
-                                    <div className="h-24 bg-white/5 rounded-xl border border-white/5" />
+                                    <InteractiveBox
+                                        label="Eficiencia"
+                                        description="98.4% de operatividad en clústeres locales."
+                                        className="h-24 bg-white/5 rounded-xl border border-white/5"
+                                    />
+                                    <InteractiveBox
+                                        label="Seguridad"
+                                        description="Encriptación militar y cumplimiento SOC2."
+                                        className="h-24 bg-white/5 rounded-xl border border-white/5"
+                                    />
                                 </div>
                             </div>
                         </div>
