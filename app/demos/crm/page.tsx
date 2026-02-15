@@ -13,7 +13,14 @@ import {
     Building2,
     DollarSign,
     Loader2,
-    CheckCircle2
+    CheckCircle2,
+    TrendingUp,
+    ArrowUpRight,
+    Search,
+    Clock,
+    User,
+    Bell,
+    Shield
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { clsx, type ClassValue } from "clsx";
@@ -25,10 +32,10 @@ function cn(...inputs: ClassValue[]) {
 }
 
 const SIDEBAR_ITEMS = [
-    { name: "Clientes", icon: Users, active: true },
-    { name: "Ventas", icon: BarChart3, active: false },
-    { name: "Agenda", icon: Calendar, active: false },
-    { name: "Config", icon: Settings, active: false },
+    { id: "clientes", name: "Clientes", icon: Users },
+    { id: "ventas", name: "Ventas", icon: BarChart3 },
+    { id: "agenda", name: "Agenda", icon: Calendar },
+    { id: "config", name: "Config", icon: Settings },
 ];
 
 const INITIAL_CLIENTS = [
@@ -39,6 +46,7 @@ const INITIAL_CLIENTS = [
 ];
 
 export default function CRMPage() {
+    const [activeTab, setActiveTab] = useState("clientes");
     const [clients, setClients] = useState(INITIAL_CLIENTS);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [notification, setNotification] = useState<string | null>(null);
@@ -68,14 +76,280 @@ export default function CRMPage() {
         setNewValue("");
 
         // Success notification
-        setNotification(`¡Ciente ${newName} añadido con éxito!`);
+        setNotification(`¡Cliente ${newName} añadido con éxito!`);
         setTimeout(() => setNotification(null), 3000);
     };
 
+    const renderClientsView = () => (
+        <div className="space-y-6">
+            <div className="bg-[#151a24] border border-white/5 rounded-2xl overflow-hidden shadow-2xl">
+                <div className="overflow-x-auto">
+                    <table className="w-full text-left border-collapse">
+                        <thead className="bg-[#1c222d] text-white/40 uppercase text-[10px] font-bold tracking-[0.1em]">
+                            <tr>
+                                <th className="px-6 py-4">Empresa</th>
+                                <th className="px-6 py-4">Estado</th>
+                                <th className="px-6 py-4">Valor</th>
+                                <th className="px-6 py-4">Probabilidad IA</th>
+                            </tr>
+                        </thead>
+                        <tbody className="divide-y divide-white/5">
+                            <AnimatePresence initial={false}>
+                                {clients.map((row) => (
+                                    <motion.tr
+                                        layout
+                                        initial={{ opacity: 0, x: -10 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        key={row.name}
+                                        onClick={() => handleRowClick(row.name)}
+                                        className="group cursor-pointer transition-colors duration-150 relative bg-transparent hover:bg-white/[0.02]"
+                                    >
+                                        <td className="px-6 py-5">
+                                            <div className="flex items-center gap-3">
+                                                <div className="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-400 group-hover:bg-blue-500 group-hover:text-white transition-all">
+                                                    <Building2 className="w-4 h-4" />
+                                                </div>
+                                                <span className="font-semibold text-white/90 group-hover:text-white transition-all">{row.name}</span>
+                                            </div>
+                                        </td>
+                                        <td className="px-6 py-5">
+                                            <span className={cn(
+                                                "px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-white/5 border border-white/10 text-white/70",
+                                                row.status === "Cierre" && "text-emerald-400 bg-emerald-400/5 border-emerald-400/10",
+                                                row.status === "Negociación" && "text-blue-400 bg-blue-400/5 border-blue-400/10",
+                                                row.status === "Propuesta" && "text-amber-400 bg-amber-400/5 border-amber-400/10"
+                                            )}>
+                                                {row.status}
+                                            </span>
+                                        </td>
+                                        <td className="px-6 py-5 font-mono text-white/80 tabular-nums">
+                                            ${row.val.toLocaleString()}
+                                        </td>
+                                        <td className="px-6 py-5">
+                                            <div className="flex items-center gap-3">
+                                                <div className="flex-1 h-1.5 bg-white/5 rounded-full overflow-hidden w-24">
+                                                    <motion.div
+                                                        initial={{ width: 0 }}
+                                                        animate={{ width: `${row.prob}%` }}
+                                                        transition={{ duration: 1, ease: "easeOut" }}
+                                                        className={cn(
+                                                            "h-full rounded-full",
+                                                            row.prob >= 80 ? "bg-emerald-500" : row.prob >= 60 ? "bg-amber-500" : "bg-slate-500"
+                                                        )}
+                                                    />
+                                                </div>
+                                                <span className={cn("text-xs font-bold", row.prob >= 80 ? "text-emerald-400" : "text-white/60")}>
+                                                    {row.prob}%
+                                                </span>
+                                            </div>
+                                        </td>
+                                    </motion.tr>
+                                ))}
+                            </AnimatePresence>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            {/* IA Insight Banner - Glassmorphism */}
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="relative p-6 rounded-2xl overflow-hidden group shadow-2xl mt-12"
+            >
+                {/* Background with blur and color overlay */}
+                <div className="absolute inset-0 bg-gradient-to-br from-[#ff4d4d]/10 via-transparent to-transparent backdrop-blur-xl border border-white/10" />
+                <div className="absolute inset-0 bg-[radial-memory(circle_at_top_left,rgba(255,77,77,0.1),transparent_70%)] opacity-30" />
+
+                <div className="relative flex items-center gap-5">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#ff4d4d] to-[#c73e3e] flex items-center justify-center shadow-lg shadow-[#ff4d4d]/20">
+                        <Sparkles className="w-6 h-6 text-white" />
+                    </div>
+                    <div className="flex-1">
+                        <h4 className="text-lg font-bold text-white mb-1 flex items-center gap-2">
+                            Insight de IA
+                            <span className="text-[10px] bg-white/10 px-1.5 py-0.5 rounded text-white/60 font-medium">RECOMENDADO</span>
+                        </h4>
+                        <p className="text-white/70 leading-relaxed max-w-2xl">
+                            <span className="text-white font-semibold">Alpha Manufacturing</span> tiene una alta probabilidad de cierre (92%). Se recomienda programar una reunión técnica para definir los entregables finales.
+                        </p>
+                    </div>
+                </div>
+            </motion.div>
+        </div>
+    );
+
+    const renderSalesView = () => (
+        <div className="space-y-8">
+            {/* Sales Stats Overlay Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {[
+                    { label: "Monto Total", val: "$185,400", trend: "+12%", icon: DollarSign, color: "text-emerald-400" },
+                    { label: "Ventas Cerradas", val: "24", trend: "+5", icon: TrendingUp, color: "text-blue-400" },
+                    { label: "Pipeline Activo", val: "$450,000", trend: "7 leads", icon: Sparkles, color: "text-[#ff4d4d]" },
+                ].map((stat, i) => (
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: i * 0.1 }}
+                        key={stat.label}
+                        className="p-6 rounded-2xl bg-[#151a24] border border-white/5 relative overflow-hidden group"
+                    >
+                        <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+                            <stat.icon className="w-16 h-16" />
+                        </div>
+                        <p className="text-[10px] font-bold text-white/40 uppercase tracking-widest mb-1">{stat.label}</p>
+                        <h3 className="text-2xl lg:text-3xl font-bold mb-2">{stat.val}</h3>
+                        <div className={cn("text-xs font-semibold flex items-center gap-1", stat.color)}>
+                            <ArrowUpRight className="w-3 h-3" />
+                            {stat.trend} <span className="text-white/30 ml-1 font-normal">este mes</span>
+                        </div>
+                    </motion.div>
+                ))}
+            </div>
+
+            {/* Performance Chart Placeholder (Styled) */}
+            <div className="bg-[#151a24] border border-white/5 rounded-2xl p-6 relative overflow-hidden">
+                <div className="flex items-center justify-between mb-8">
+                    <h3 className="font-bold text-lg">Rendimiento Mensual</h3>
+                    <div className="flex gap-2">
+                        {['7d', '30d', '90d'].map(t => (
+                            <button key={t} className="px-3 py-1 rounded-lg bg-white/5 border border-white/10 text-[10px] font-bold hover:bg-white/10 transition-all">{t}</button>
+                        ))}
+                    </div>
+                </div>
+                <div className="h-48 flex items-end gap-2 lg:gap-4 px-2">
+                    {[40, 65, 45, 90, 100, 80, 55, 70, 85, 95, 60, 75].map((h, i) => (
+                        <motion.div
+                            key={i}
+                            initial={{ height: 0 }}
+                            animate={{ height: `${h}%` }}
+                            transition={{ delay: i * 0.05, duration: 1 }}
+                            className={cn(
+                                "flex-1 rounded-t-lg transition-all relative group",
+                                i === 4 ? "bg-blue-500 shadow-[0_0_20px_rgba(59,130,246,0.5)]" : "bg-white/10"
+                            )}
+                        >
+                            <div className="absolute -top-10 left-1/2 -translate-x-1/2 bg-[#1c222d] px-2 py-1 rounded text-[10px] opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
+                                ${h}k
+                            </div>
+                        </motion.div>
+                    ))}
+                </div>
+                <div className="flex justify-between mt-4 text-[10px] font-bold text-white/20 uppercase px-2">
+                    <span>Ene</span>
+                    <span>Jun</span>
+                    <span>Dic</span>
+                </div>
+            </div>
+        </div>
+    );
+
+    const renderCalendarView = () => (
+        <div className="space-y-6">
+            <div className="flex items-center justify-between mb-2">
+                <h3 className="font-bold text-xl">Próximos Eventos</h3>
+                <Button className="bg-white/5 border border-white/10 text-xs h-8 px-3 rounded-lg hover:bg-white/10 font-bold">Hoy</Button>
+            </div>
+
+            <div className="space-y-4">
+                {[
+                    { time: "09:30 AM", title: "Review con TechCorp", type: "Reunión Técnica", color: "border-blue-500" },
+                    { time: "11:00 AM", title: "Cierre Solaris Energy", type: "Ventas", color: "border-emerald-500" },
+                    { time: "02:00 PM", title: "Feedback Bitte Tech", type: "Interna", color: "border-amber-500" },
+                    { time: "04:30 PM", title: "Demo IA Pipeline", type: "Sincronización", color: "border-purple-500" },
+                ].map((event, i) => (
+                    <motion.div
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: i * 0.1 }}
+                        key={event.title}
+                        className={cn("bg-[#151a24] border-l-4 p-5 rounded-xl flex items-center gap-6", event.color)}
+                    >
+                        <div className="flex flex-col items-center min-w-[60px]">
+                            <span className="text-xs font-bold text-white/40">{event.time.split(' ')[1]}</span>
+                            <span className="text-lg font-bold tracking-tighter">{event.time.split(' ')[0]}</span>
+                        </div>
+                        <div className="flex-1">
+                            <h4 className="font-bold mb-0.5">{event.title}</h4>
+                            <span className="text-[10px] text-white/30 uppercase font-bold tracking-widest">{event.type}</span>
+                        </div>
+                        <Button className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 p-0 flex items-center justify-center hover:bg-white/10">
+                            <ArrowUpRight className="w-4 h-4 text-white/40" />
+                        </Button>
+                    </motion.div>
+                ))}
+            </div>
+
+            {/* AI Scheduling Tip */}
+            <div className="p-6 rounded-2xl bg-blue-600/10 border border-blue-500/20 flex gap-4 mt-8">
+                <Clock className="w-6 h-6 text-blue-400 mt-1" />
+                <div>
+                    <h4 className="font-bold text-blue-400 mb-1">Optimizador de Agenda</h4>
+                    <p className="text-sm text-blue-400/70 leading-relaxed">
+                        He detectado que las reuniones de los jueves por la mañana tienen un 15% más de tasa de cierre. ¿Quieres mover la sesión de solaris?
+                    </p>
+                </div>
+            </div>
+        </div>
+    );
+
+    const renderSettingsView = () => (
+        <div className="max-w-2xl space-y-8">
+            <section className="space-y-4">
+                <h3 className="font-bold text-xl mb-6">Configuración de Cuenta</h3>
+                <div className="bg-[#151a24] border border-white/5 rounded-2xl p-6 space-y-6">
+                    <div className="flex items-center gap-4">
+                        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-2xl font-bold">
+                            JG
+                        </div>
+                        <div>
+                            <h4 className="font-bold text-lg">Juan Garzón</h4>
+                            <p className="text-white/40 text-sm">Administrador · Bitte CRM</p>
+                        </div>
+                        <Button className="ml-auto bg-white/5 border border-white/10 text-xs px-4 h-9 rounded-xl font-bold hover:bg-white/10">Editar</Button>
+                    </div>
+                </div>
+            </section>
+
+            <section className="space-y-4">
+                <h3 className="font-bold text-lg">Sistema y Notificaciones IA</h3>
+                <div className="bg-[#151a24] border border-white/5 rounded-2xl divide-y divide-white/5">
+                    {[
+                        { title: "Insights de IA Automáticos", desc: "Recibir sugerencias de cierre en tiempo real.", icon: Sparkles, active: true },
+                        { title: "Notificaciones Push", desc: "Alertas inmediatas sobre nuevos leads.", icon: Bell, active: true },
+                        { title: "Privacidad de Datos", desc: "Encriptar nombres de clientes en modo público.", icon: Shield, active: false },
+                    ].map((pref, i) => (
+                        <div key={pref.title} className="p-6 flex items-center justify-between group">
+                            <div className="flex gap-4">
+                                <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-white/30 group-hover:text-blue-400 group-hover:bg-blue-500/10 transition-all">
+                                    <pref.icon className="w-5 h-5" />
+                                </div>
+                                <div>
+                                    <h5 className="font-bold text-sm tracking-tight">{pref.title}</h5>
+                                    <p className="text-white/30 text-[11px] font-medium">{pref.desc}</p>
+                                </div>
+                            </div>
+                            <div className={cn(
+                                "w-10 h-5 rounded-full relative transition-all duration-300 cursor-pointer",
+                                pref.active ? "bg-blue-600" : "bg-white/10"
+                            )}>
+                                <div className={cn(
+                                    "absolute top-1 w-3 h-3 rounded-full bg-white transition-all duration-300",
+                                    pref.active ? "right-1" : "left-1"
+                                )} />
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </section>
+        </div>
+    );
+
     return (
-        <div className="flex min-h-screen bg-[#0b0e14] text-white font-sans selection:bg-blue-500/30 pt-20 lg:pt-0">
+        <div className="flex min-h-screen bg-[#0b0e14] text-white font-sans selection:bg-blue-500/30 pt-20">
             {/* Sidebar */}
-            <aside className="w-20 lg:w-64 border-r border-white/5 bg-[#0e121a] flex flex-col transition-all duration-300 fixed lg:relative h-full z-20">
+            <aside className="w-20 lg:w-64 border-r border-white/5 bg-[#0e121a] flex flex-col transition-all duration-300 fixed lg:sticky top-20 left-0 h-[calc(100vh-5rem)] z-20">
                 <div className="p-6 hidden lg:block">
                     <div className="flex items-center gap-2 text-xl font-bold tracking-tight">
                         <span className="bg-gradient-to-br from-white to-white/60 bg-clip-text text-transparent">Bitte</span>
@@ -86,21 +360,22 @@ export default function CRMPage() {
                 <nav className="flex-1 px-3 space-y-2 mt-4">
                     {SIDEBAR_ITEMS.map((item) => (
                         <button
-                            key={item.name}
+                            key={item.id}
+                            onClick={() => setActiveTab(item.id)}
                             className={cn(
                                 "flex items-center justify-center lg:justify-start gap-3 w-full px-4 py-3 rounded-xl transition-all duration-200 group relative",
-                                item.active
+                                activeTab === item.id
                                     ? "bg-blue-600/10 text-blue-400 shadow-[inset_0_0_20px_rgba(59,130,246,0.05)]"
                                     : "text-white/40 hover:text-white hover:bg-white/5"
                             )}
                         >
-                            {item.active && (
+                            {activeTab === item.id && (
                                 <motion.div
                                     layoutId="active-pill"
                                     className="absolute left-0 w-1 h-6 bg-blue-500 rounded-r-full"
                                 />
                             )}
-                            <item.icon className={cn("w-5 h-5", item.active && "text-blue-400")} />
+                            <item.icon className={cn("w-5 h-5", activeTab === item.id && "text-blue-400")} />
                             <span className="font-medium hidden lg:block">{item.name}</span>
                         </button>
                     ))}
@@ -108,120 +383,43 @@ export default function CRMPage() {
             </aside>
 
             {/* Main Content */}
-            <main className="flex-1 overflow-auto relative ml-20 lg:ml-0">
+            <main className="flex-1 overflow-auto relative ml-0 lg:ml-0">
                 {/* Header */}
                 <header className="sticky top-0 z-10 flex items-center justify-between p-6 bg-[#0b0e14]/80 backdrop-blur-md border-b border-white/5">
                     <div className="flex items-center gap-4">
                         <div className="lg:hidden text-lg font-bold">
                             <span className="text-white">B</span><span className="text-[#ff4d4d]">C</span>
                         </div>
-                        <h1 className="text-xl lg:text-2xl font-bold tracking-tight text-white/90">Gestión de Clientes</h1>
+                        <h1 className="text-xl lg:text-2xl font-bold tracking-tight text-white/90">
+                            {SIDEBAR_ITEMS.find(i => i.id === activeTab)?.name}
+                        </h1>
                     </div>
-                    <Button
-                        onClick={() => setIsModalOpen(true)}
-                        className="bg-blue-600 hover:bg-blue-500 text-white border-0 shadow-lg shadow-blue-600/20 px-4 lg:px-6 h-10 lg:h-11 rounded-xl gap-2 font-semibold transition-all hover:scale-[1.02]"
-                    >
-                        <Plus className="w-5 h-5" />
-                        <span className="hidden sm:inline">Nuevo Cliente</span>
-                    </Button>
+                    {activeTab === "clientes" && (
+                        <Button
+                            onClick={() => setIsModalOpen(true)}
+                            className="bg-blue-600 hover:bg-blue-500 text-white border-0 shadow-lg shadow-blue-600/20 px-4 lg:px-6 h-10 lg:h-11 rounded-xl gap-2 font-semibold transition-all hover:scale-[1.02]"
+                        >
+                            <Plus className="w-5 h-5" />
+                            <span className="hidden sm:inline">Nuevo Cliente</span>
+                        </Button>
+                    )}
                 </header>
 
-                <div className="p-6 space-y-6 max-w-7xl mx-auto">
-                    {/* Table Container */}
-                    <div className="bg-[#151a24] border border-white/5 rounded-2xl overflow-hidden shadow-2xl">
-                        <div className="overflow-x-auto">
-                            <table className="w-full text-left border-collapse">
-                                <thead className="bg-[#1c222d] text-white/40 uppercase text-[10px] font-bold tracking-[0.1em]">
-                                    <tr>
-                                        <th className="px-6 py-4">Empresa</th>
-                                        <th className="px-6 py-4">Estado</th>
-                                        <th className="px-6 py-4">Valor</th>
-                                        <th className="px-6 py-4">Probabilidad IA</th>
-                                    </tr>
-                                </thead>
-                                <tbody className="divide-y divide-white/5">
-                                    <AnimatePresence initial={false}>
-                                        {clients.map((row) => (
-                                            <motion.tr
-                                                layout
-                                                initial={{ opacity: 0, x: -10 }}
-                                                animate={{ opacity: 1, x: 0 }}
-                                                key={row.name}
-                                                onClick={() => handleRowClick(row.name)}
-                                                className="group cursor-pointer transition-colors duration-150 relative bg-transparent hover:bg-white/[0.02]"
-                                            >
-                                                <td className="px-6 py-5">
-                                                    <div className="flex items-center gap-3">
-                                                        <div className="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-400 group-hover:bg-blue-500 group-hover:text-white transition-all">
-                                                            <Building2 className="w-4 h-4" />
-                                                        </div>
-                                                        <span className="font-semibold text-white/90 group-hover:text-white transition-all">{row.name}</span>
-                                                    </div>
-                                                </td>
-                                                <td className="px-6 py-5">
-                                                    <span className={cn(
-                                                        "px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-white/5 border border-white/10 text-white/70",
-                                                        row.status === "Cierre" && "text-emerald-400 bg-emerald-400/5 border-emerald-400/10",
-                                                        row.status === "Negociación" && "text-blue-400 bg-blue-400/5 border-blue-400/10",
-                                                        row.status === "Propuesta" && "text-amber-400 bg-amber-400/5 border-amber-400/10"
-                                                    )}>
-                                                        {row.status}
-                                                    </span>
-                                                </td>
-                                                <td className="px-6 py-5 font-mono text-white/80 tabular-nums">
-                                                    ${row.val.toLocaleString()}
-                                                </td>
-                                                <td className="px-6 py-5">
-                                                    <div className="flex items-center gap-3">
-                                                        <div className="flex-1 h-1.5 bg-white/5 rounded-full overflow-hidden w-24">
-                                                            <motion.div
-                                                                initial={{ width: 0 }}
-                                                                animate={{ width: `${row.prob}%` }}
-                                                                transition={{ duration: 1, ease: "easeOut" }}
-                                                                className={cn(
-                                                                    "h-full rounded-full",
-                                                                    row.prob >= 80 ? "bg-emerald-500" : row.prob >= 60 ? "bg-amber-500" : "bg-slate-500"
-                                                                )}
-                                                            />
-                                                        </div>
-                                                        <span className={cn("text-xs font-bold", row.prob >= 80 ? "text-emerald-400" : "text-white/60")}>
-                                                            {row.prob}%
-                                                        </span>
-                                                    </div>
-                                                </td>
-                                            </motion.tr>
-                                        ))}
-                                    </AnimatePresence>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    {/* IA Insight Banner - Glassmorphism */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="relative p-6 rounded-2xl overflow-hidden group shadow-2xl mt-12"
-                    >
-                        {/* Background with blur and color overlay */}
-                        <div className="absolute inset-0 bg-gradient-to-br from-[#ff4d4d]/10 via-transparent to-transparent backdrop-blur-xl border border-white/10" />
-                        <div className="absolute inset-0 bg-[radial-memory(circle_at_top_left,rgba(255,77,77,0.1),transparent_70%)] opacity-30" />
-
-                        <div className="relative flex items-center gap-5">
-                            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#ff4d4d] to-[#c73e3e] flex items-center justify-center shadow-lg shadow-[#ff4d4d]/20">
-                                <Sparkles className="w-6 h-6 text-white" />
-                            </div>
-                            <div className="flex-1">
-                                <h4 className="text-lg font-bold text-white mb-1 flex items-center gap-2">
-                                    Insight de IA
-                                    <span className="text-[10px] bg-white/10 px-1.5 py-0.5 rounded text-white/60 font-medium">RECOMENDADO</span>
-                                </h4>
-                                <p className="text-white/70 leading-relaxed max-w-2xl">
-                                    <span className="text-white font-semibold">Alpha Manufacturing</span> tiene una alta probabilidad de cierre (92%). Se recomienda programar una reunión técnica para definir los entregables finales.
-                                </p>
-                            </div>
-                        </div>
-                    </motion.div>
+                <div className="p-6 lg:p-10 space-y-6 max-w-7xl mx-auto">
+                    <AnimatePresence mode="wait">
+                        <motion.div
+                            key={activeTab}
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -10 }}
+                            transition={{ duration: 0.2 }}
+                        >
+                            {activeTab === "clientes" && renderClientsView()}
+                            {activeTab === "ventas" && renderSalesView()}
+                            {activeTab === "agenda" && renderCalendarView()}
+                            {activeTab === "config" && renderSettingsView()}
+                        </motion.div>
+                    </AnimatePresence>
                 </div>
 
                 {/* Toast Notification */}
