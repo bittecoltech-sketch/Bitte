@@ -27,18 +27,30 @@ const logos = [
 
 function InteractiveBox({ label, description, className }: { label: string; description: string; className: string }) {
     return (
-        <div className={`relative group/item cursor-help ${className}`}>
-            <div className="absolute inset-0 bg-white/[0.03] group-hover/item:bg-white/[0.08] transition-colors rounded" />
+        <div className={`relative group/item cursor-pointer ${className} transition-all duration-300`}>
+            {/* Base Box */}
+            <div className="absolute inset-0 bg-white/[0.03] group-hover/item:bg-white/[0.08] border border-white/5 group-hover/item:border-bitte-blue/30 transition-all rounded shadow-inner" />
 
-            {/* Tooltip */}
+            {/* Pulse Hotspot Dot */}
+            <div className="absolute top-2 right-2 flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-bitte-blue opacity-40"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-bitte-blue/60 group-hover/item:bg-bitte-blue"></span>
+            </div>
+
+            {/* Tooltip Content Card */}
             <motion.div
                 initial={{ opacity: 0, scale: 0.9, y: 10 }}
                 whileHover={{ opacity: 1, scale: 1, y: 0 }}
-                className="absolute -top-16 left-1/2 -translate-x-1/2 w-48 p-3 bg-bitte-base border border-white/10 rounded-lg shadow-2xl pointer-events-none z-50 text-[10px] leading-tight opacity-0"
+                className="absolute -top-20 left-1/2 -translate-x-1/2 w-56 p-4 bg-[#151a24] border border-bitte-blue/20 rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] pointer-events-none z-50 opacity-0 backdrop-blur-xl"
             >
-                <p className="font-bold text-bitte-blue mb-1 uppercase tracking-widest">{label}</p>
-                <p className="text-white/60">{description}</p>
-                <div className="absolute top-full left-1/2 -translate-x-1/2 w-2 h-2 bg-bitte-base border-r border-b border-white/10 rotate-45 -mt-1" />
+                <div className="flex items-center gap-2 mb-2">
+                    <div className="w-1.5 h-1.5 rounded-full bg-bitte-blue" />
+                    <p className="font-bold text-xs text-white uppercase tracking-wider">{label}</p>
+                </div>
+                <p className="text-[10px] text-bitte-steel leading-relaxed">{description}</p>
+
+                {/* Tooltip Arrow */}
+                <div className="absolute top-full left-1/2 -translate-x-1/2 w-3 h-3 bg-[#151a24] border-r border-b border-bitte-blue/20 rotate-45 -mt-1.5" />
             </motion.div>
         </div>
     );
@@ -142,13 +154,13 @@ export default function PlatformPreview() {
 
                                 <div className="grid grid-cols-2 gap-4">
                                     <InteractiveBox
-                                        label="Eficiencia"
-                                        description="98.4% de operatividad en clústeres locales."
+                                        label="Eficiencia Operativa"
+                                        description="Reducción del 45% en tiempos de respuesta mediante agentes autónomos optimizados."
                                         className="h-24 bg-white/5 rounded-xl border border-white/5"
                                     />
                                     <InteractiveBox
-                                        label="Seguridad"
-                                        description="Encriptación militar y cumplimiento SOC2."
+                                        label="Seguridad Blindada"
+                                        description="Protección de datos industriales bajo estándares SOC2 y cifrado de extremo a extremo."
                                         className="h-24 bg-white/5 rounded-xl border border-white/5"
                                     />
                                 </div>
