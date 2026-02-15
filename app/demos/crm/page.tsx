@@ -101,13 +101,21 @@ export default function CRMPage() {
 
     const handleSaveEvent = () => {
         if (!newEvTitle || !newEvTime) return;
+
+        // Basic normalization: Ensure there's a space before AM/PM if not present
+        let formattedTime = newEvTime.trim().toUpperCase();
+        if (!formattedTime.includes(" ") && (formattedTime.endsWith("AM") || formattedTime.endsWith("PM"))) {
+            formattedTime = formattedTime.replace(/(AM|PM)/, " $1");
+        }
+
         const newEvent = {
-            time: newEvTime,
+            time: formattedTime,
             title: newEvTitle,
             type: "Nuevo Evento",
             color: "border-purple-500"
         };
-        setEvents([...events, newEvent]);
+
+        setEvents([newEvent, ...events]); // Prepend for immediate visibility
         setIsEventModalOpen(false);
         setNewEvTitle("");
         setNewEvTime("");
@@ -315,27 +323,33 @@ export default function CRMPage() {
             </div>
 
             <div className="space-y-4">
-                {events.map((event, i) => (
-                    <motion.div
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: i * 0.1 }}
-                        key={`${event.title}-${i}`}
-                        className={cn("bg-[#151a24] border-l-4 p-5 rounded-xl flex items-center gap-6", event.color)}
-                    >
-                        <div className="flex flex-col items-center min-w-[60px]">
-                            <span className="text-xs font-bold text-white/40">{event.time.split(' ')[1]}</span>
-                            <span className="text-lg font-bold tracking-tighter">{event.time.split(' ')[0]}</span>
-                        </div>
-                        <div className="flex-1">
-                            <h4 className="font-bold mb-0.5">{event.title}</h4>
-                            <span className="text-[10px] text-white/30 uppercase font-bold tracking-widest">{event.type}</span>
-                        </div>
-                        <Button className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 p-0 flex items-center justify-center hover:bg-white/10">
-                            <ArrowUpRight className="w-4 h-4 text-white/40" />
-                        </Button>
-                    </motion.div>
-                ))}
+                {events.map((event, i) => {
+                    const timeParts = event.time.split(' ');
+                    const period = timeParts.length > 1 ? timeParts[1] : "";
+                    const time = timeParts[0];
+
+                    return (
+                        <motion.div
+                            initial={{ opacity: 0, x: 20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: i * 0.1 }}
+                            key={`${event.title}-${i}`}
+                            className={cn("bg-[#151a24] border-l-4 p-5 rounded-xl flex items-center gap-6", event.color)}
+                        >
+                            <div className="flex flex-col items-center min-w-[60px]">
+                                <span className="text-xs font-bold text-white/40">{period || "H"}</span>
+                                <span className="text-lg font-bold tracking-tighter">{time}</span>
+                            </div>
+                            <div className="flex-1">
+                                <h4 className="font-bold mb-0.5">{event.title}</h4>
+                                <span className="text-[10px] text-white/30 uppercase font-bold tracking-widest">{event.type}</span>
+                            </div>
+                            <Button className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 p-0 flex items-center justify-center hover:bg-white/10">
+                                <ArrowUpRight className="w-4 h-4 text-white/40" />
+                            </Button>
+                        </motion.div>
+                    );
+                })}
             </div>
 
             {/* AI Scheduling Tip */}
@@ -630,6 +644,7 @@ export default function CRMPage() {
                                             className="w-full bg-white/5 border border-white/10 rounded-xl py-2.5 pl-10 pr-4 text-sm focus:outline-none focus:border-emerald-500/50 focus:bg-white/[0.07] transition-all"
                                         />
                                     </div>
+                                    <p className="text-[9px] text-white/20 italic">Formato recomendado: HH:MM AM/PM</p>
                                 </div>
                             </div>
                             <div className="p-6 bg-[#1c222d] flex justify-end gap-3">
