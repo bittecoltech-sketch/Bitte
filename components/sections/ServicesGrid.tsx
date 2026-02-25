@@ -55,7 +55,7 @@ export default function ServicesGrid() {
 
     return (
         <section id="services" className="py-24 bg-bitte-base relative overflow-hidden">
-            <div className="container mx-auto px-6">
+            <div className="container mx-auto px-6 max-w-7xl">
                 <div className="text-center mb-16">
                     <h2 className="text-4xl font-bold mb-4">
                         Potentes Soluciones <span className="text-bitte-blue">de Crecimiento</span>
@@ -75,7 +75,7 @@ export default function ServicesGrid() {
                     </button>
 
                     {/* Desktop Carousel (Center Focus Effect) */}
-                    <div className="hidden md:flex items-center justify-center w-full max-w-6xl h-[500px]">
+                    <div className="hidden md:flex items-center justify-center w-full max-w-7xl h-[500px]">
                         <AnimatePresence mode="popLayout" initial={false}>
                             {getVisibleItems(3).map((item, i) => {
                                 const isCenter = i === 1;
@@ -94,35 +94,38 @@ export default function ServicesGrid() {
                                         exit={{ opacity: 0, scale: 0.8 }}
                                         transition={{ duration: 0.5, type: "spring", bounce: 0.2 }}
                                         className={`
-                                    flex-shrink-0 w-1/3 p-10 rounded-[2rem] flex flex-col items-center text-center shadow-lg min-h-[400px]
-                                    bg-gradient-to-b from-[#1e3a8a]/40 to-[#020617] border border-bitte-blue/20
-                                    transition-colors duration-500
-                                    ${isCenter ? 'border-bitte-blue/50 shadow-bitte-blue/20' : 'border-transparent'}
-                                `}
+                                            group flex-shrink-0 w-1/3 p-0 flex flex-col items-center text-center min-h-[400px] transition-colors duration-500 relative
+                                            ${isCenter ? 'z-10' : 'z-0'}
+                                        `}
                                     >
-                                        <div className={`
-                                    p-4 rounded-2xl bg-gradient-to-br from-bitte-blue to-purple-600 mb-8 shadow-lg shadow-purple-500/20 
-                                    transition-transform duration-500
-                                    ${isCenter ? 'scale-110' : 'scale-100 grayscale-[50%]'}
-                                `}>
-                                            <item.icon className="w-10 h-10 text-white" />
+                                        {/* Card outer border — lights up on hover */}
+                                        <div
+                                            className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-400 pointer-events-none"
+                                            style={{
+                                                background: isCenter ? 'linear-gradient(135deg, #3DAA80 0%, transparent 60%)' : 'none',
+                                                padding: '1px',
+                                            }}
+                                        />
+                                        {/* Card shell */}
+                                        <div
+                                            className="relative flex flex-col flex-1 rounded-xl overflow-hidden w-full h-full shadow-lg px-8 py-8 md:px-10 md:py-10"
+                                            style={{
+                                                background: isCenter ? '#161B22' : '#10141A',
+                                                border: isCenter ? '1.5px solid #3DAA80' : '1px solid #222',
+                                            }}
+                                        >
+                                            <div className={`flex items-center justify-center w-full pt-4 pb-4`}>
+                                                <div className={`rounded-2xl p-4 mb-2`} style={{ background: isCenter ? 'linear-gradient(135deg, #1d4d3f 0%, #2A6B58 50%, #3DAA80 100%)' : 'linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%)', boxShadow: isCenter ? '0 4px 18px rgba(61,170,128,0.55)' : '0 2px 8px rgba(59,130,246,0.15)' }}>
+                                                    <item.icon className="w-10 h-10 text-white" />
+                                                </div>
+                                            </div>
+                                            <h3 className={`text-2xl font-bold text-white mb-4 transition-opacity ${isCenter ? 'opacity-100' : 'opacity-70'}`}>
+                                                {item.title}
+                                            </h3>
+                                            <p className={`text-sm text-bitte-steel mb-2 leading-relaxed flex-1 transition-opacity ${isCenter ? 'opacity-100' : 'opacity-0'}`}>
+                                                {item.desc}
+                                            </p>
                                         </div>
-
-                                        <h3 className={`text-2xl font-bold text-white mb-4 transition-opacity ${isCenter ? 'opacity-100' : 'opacity-70'}`}>
-                                            {item.title}
-                                        </h3>
-                                        <p className={`text-sm text-bitte-steel mb-8 leading-relaxed flex-1 transition-opacity ${isCenter ? 'opacity-100' : 'opacity-0'}`}>
-                                            {item.desc}
-                                        </p>
-
-                                        <button className={`
-                                    text-xs font-bold px-6 py-2 rounded-full uppercase tracking-widest mt-auto transition-all duration-300
-                                    ${isCenter
-                                                ? 'text-white/90 border border-white/20 hover:bg-white hover:text-black opacity-100 cursor-pointer'
-                                                : 'opacity-0 pointer-events-none'}
-                                `}>
-                                            Ver Más
-                                        </button>
                                     </motion.div>
                                 );
                             })}
