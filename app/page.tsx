@@ -12,10 +12,10 @@ export default function Home() {
     <>
       <Hero />
       <TechShowcase />
-      <PlatformPreview />
+      <DemoHub />
       <ServicesGrid />
       <InnovationStats />
-      <DemoHub />
+      <PlatformPreview />
       <BitteTech />
     </>
   );
