@@ -9,7 +9,7 @@ import Image from "next/image";
 const slides = [
     {
         id: 1,
-        image: "/hero-ai.png",
+        image: "/hero-ai-v2.png",
         label: "Neural Architecture",
         tagline: "INTELIGENCIA QUE PIENSA",
         desc: "Sistemas cognitivos que automatizan el 80% de tu flujo operativo.",
@@ -17,7 +17,7 @@ const slides = [
     },
     {
         id: 2,
-        image: "/hero-iot.png",
+        image: "/hero-iot-v2.png",
         label: "IoT Connectivity",
         tagline: "CONTROL TOTAL",
         desc: "Conexión físico-digital en tiempo real. Tu fábrica en tu bolsillo.",
@@ -25,7 +25,7 @@ const slides = [
     },
     {
         id: 3,
-        image: "/hero-data.png",
+        image: "/hero-data-v2.png",
         label: "Data Intelligence",
         tagline: "VISIÓN DEL FUTURO",
         desc: "Transformamos ruido en señales de mercado claras y accionables.",
