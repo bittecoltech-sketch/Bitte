@@ -13,43 +13,53 @@ import {
     FileText,
     ArrowRight,
     PieChart,
-    LineChart,
-    Search,
-    Brain
+    BarChart3,
+    Database,
+    Binary,
+    Terminal,
+    LayoutDashboard
 } from "lucide-react";
 import Link from "next/link";
 
 const curriculum = [
     {
-        title: "Módulo 1: Fundamentos y Análisis Exploratorio",
+        title: "Módulo 1: SQL Server desde Cero",
         lessons: [
-            { title: "Introducción al Data Science Moderno", duration: "15 min", type: "video" },
-            { title: "Estreategias de Análisis Exploratorio (EDA)", duration: "30 min", type: "video" },
-            { title: "Estadicística aplicada a negocios", duration: "25 min", type: "reading" },
+            { title: "Instalación y configuración del entorno (SSMS)", duration: "20 min", type: "video" },
+            { title: "Arquitectura de bases de datos relacionales", duration: "25 min", type: "video" },
+            { title: "Lenguaje DDL y DML: Crear, Insertar, Actualizar y Eliminar", duration: "40 min", type: "video" },
+            { title: "Consultas esenciales: SELECT, WHERE, JOINs y Agrupaciones", duration: "45 min", type: "video" },
+            { title: "Práctica: Creación de una base de datos empresarial", duration: "30 min", type: "reading" },
         ]
     },
     {
-        title: "Módulo 2: Manipulación y Limpieza de Datos",
+        title: "Módulo 2: Power BI - Conexión y Modelado",
         lessons: [
-            { title: "Ingeniería de características (Feature Engineering)", duration: "35 min", type: "video" },
-            { title: "Manejo de valores faltantes y outliers", duration: "20 min", type: "video" },
-            { title: "Integración de múltiples fuentes de datos", duration: "25 min", type: "video" },
+            { title: "Importación de datos desde SQL Server a Power BI", duration: "20 min", type: "video" },
+            { title: "Limpieza de datos profesional con Power Query", duration: "35 min", type: "video" },
+            { title: "Modelado de datos: Relaciones, Cardinalidad y Esquema Estrella", duration: "40 min", type: "video" },
+            { title: "Introducción a DAX: Medidas vs Columnas calculadas", duration: "30 min", type: "video" },
+            { title: "Optimización de modelos para grandes volúmenes", duration: "25 min", type: "reading" },
         ]
     },
     {
-        title: "Módulo 3: Introducción al Machine Learning",
+        title: "Módulo 3: Creación de Dashboards Profesionales",
         lessons: [
-            { title: "Modelos de Regresión y Clasificación", duration: "45 min", type: "video" },
-            { title: "Evaluación de modelos (Precisión vs Recall)", duration: "20 min", type: "reading" },
-            { title: "Algoritmos de agrupamiento (Clustering)", duration: "30 min", type: "video" },
+            { title: "Diseño UX/UI aplicado a reportes de inteligencia", duration: "25 min", type: "video" },
+            { title: "Visualizaciones dinámicas: Mapas, Matrices y KPIs", duration: "35 min", type: "video" },
+            { title: "Interactividad: Drill-down, Tooltips y Segmentadores", duration: "30 min", type: "video" },
+            { title: "Filtros inteligentes y parámetros de campo", duration: "25 min", type: "video" },
+            { title: "Taller: Dashboard de Seguimiento Financiero", duration: "40 min", type: "reading" },
         ]
     },
     {
-        title: "Módulo 4: Storytelling y Visualización",
+        title: "Módulo 4: Publicación y Generación de Documentos",
         lessons: [
-            { title: "Principios de comunicación de insights", duration: "20 min", type: "video" },
-            { title: "Creación de visualizaciones de alto impacto", duration: "30 min", type: "video" },
-            { title: "Presentación de resultados a stakeholders", duration: "15 min", type: "reading" },
+            { title: "Power BI Service: Publicación y Colaboración", duration: "25 min", type: "video" },
+            { title: "Automatización de la actualización de datos (Gateways)", duration: "30 min", type: "video" },
+            { title: "Exportación y generación profesional de PDFs y reportes", duration: "25 min", type: "video" },
+            { title: "Seguridad por niveles (Row-Level Security)", duration: "35 min", type: "video" },
+            { title: "Proyecto Final: Sistema de BI integral SQL + Power BI", duration: "1 hora", type: "reading" },
         ]
     }
 ];
@@ -76,7 +86,7 @@ export default function DataScienceDetail() {
                         <ChevronRight className="w-4 h-4" />
                         <Link href="/academy" className="hover:text-white transition-colors">Academy</Link>
                         <ChevronRight className="w-4 h-4" />
-                        <span className="text-white font-medium">Data Science</span>
+                        <span className="text-white font-medium">SQL Server & Power BI</span>
                     </nav>
 
                     <div className="max-w-4xl">
@@ -90,21 +100,21 @@ export default function DataScienceDetail() {
                         </div>
 
                         <h1 className="text-5xl md:text-6xl font-extrabold text-white mb-6 tracking-tight">
-                            Data Science
+                            SQL Server & Power BI
                         </h1>
 
                         <p className="text-xl text-bitte-steel mb-8 max-w-2xl leading-relaxed">
-                            Convierte datos brutos en decisiones estratégicas. Aprende a extraer patrones, predecir tendencias y comunicar resultados de alto impacto.
+                            Domina desde la arquitectura de bases de datos hasta la creación de dashboards profesionales de alto impacto. Aprende a gestionar datos con SQL Server y visualizarlos con el poder de Power BI.
                         </p>
 
                         <div className="flex flex-wrap gap-6 text-sm">
                             <div className="flex items-center gap-2 text-white">
                                 <Clock className="w-5 h-5" style={{ color: ACCENT_COLOR }} />
-                                <span>Duración: 8 Semanas</span>
+                                <span>Duración: 10 Semanas</span>
                             </div>
                             <div className="flex items-center gap-2 text-white">
                                 <BarChart className="w-5 h-5" style={{ color: ACCENT_COLOR }} />
-                                <span>Nivel: Intermedio</span>
+                                <span>Nivel: Desde 0 a Avanzado</span>
                             </div>
                             <div className="flex items-center gap-2 text-white">
                                 <Award className="w-5 h-5" style={{ color: ACCENT_COLOR }} />
@@ -125,10 +135,10 @@ export default function DataScienceDetail() {
                                 <h2 className="text-3xl font-bold text-white mb-8 border-l-4 pl-4" style={{ borderColor: ACCENT_COLOR }}>¿Qué aprenderás?</h2>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     {[
-                                        "Fundamentos de estadística para análisis de negocios.",
-                                        "Técnicas avanzadas de Wrangling y limpieza de datos.",
-                                        "Implementación de modelos de Machine Learning.",
-                                        "Storytelling con datos y visualización interactiva."
+                                        "Diseño y administración de bases de datos relacionales en SQL Server.",
+                                        "Modelado de datos avanzado y lenguaje DAX para inteligencia de negocios.",
+                                        "Creación de reportes dinámicos y generación profesional de documentos.",
+                                        "Automatización y publicación de soluciones de BI en la nube."
                                     ].map((item, i) => (
                                         <div key={i} className="p-6 rounded-xl bg-[#161B22] border border-white/5 flex gap-4 transition-all hover:bg-white/5 active:scale-[0.98]">
                                             <div className="flex-shrink-0">
@@ -191,10 +201,10 @@ export default function DataScienceDetail() {
                                 <h2 className="text-3xl font-bold text-white mb-8 border-l-4 pl-4" style={{ borderColor: ACCENT_COLOR }}>Requisitos</h2>
                                 <ul className="space-y-4">
                                     {[
-                                        "Comprensión básica de conjuntos de datos.",
-                                        "Curiosidad por el descubrimiento de patrones.",
-                                        "Mentalidad analítica y orientada a resultados.",
-                                        "No se requiere experiencia previa en algoritmos complejos."
+                                        "No se requieren conocimientos previos en programación.",
+                                        "Computadora con Windows para instalar SQL Server y Power BI Desktop.",
+                                        "Ganas de profesionalizar el manejo de información corporativa.",
+                                        "Orientación a la toma de decisiones basada en datos."
                                     ].map((req, i) => (
                                         <li key={i} className="flex gap-4 items-center group">
                                             <div className="w-2 h-2 rounded-full group-hover:scale-150 transition-transform shadow-[0_0_10px_rgba(124,58,237,0.8)]" style={{ background: ACCENT_COLOR }} />
@@ -228,9 +238,9 @@ export default function DataScienceDetail() {
 
                                     <div className="p-8">
                                         <div className="space-y-2 mb-8">
-                                            <h4 className="text-white text-xl font-bold">Consultar Disponibilidad</h4>
+                                            <h4 className="text-white text-xl font-bold">Comienza tu Maestría en BI</h4>
                                             <p className="text-bitte-steel text-sm leading-relaxed">
-                                                Comienza tu camino hacia el dominio de los datos con expertos en la industria.
+                                                Aprende las herramientas más demandadas para la gestión de datos empresariales.
                                             </p>
                                         </div>
 
@@ -245,20 +255,20 @@ export default function DataScienceDetail() {
                                         <div className="space-y-4 pt-4 border-t border-white/5">
                                             <h4 className="text-sm font-bold text-white uppercase tracking-wider mb-2">Este curso incluye:</h4>
                                             <div className="flex items-center gap-3 text-sm text-bitte-steel">
-                                                <PieChart className="w-4 h-4" style={{ color: ACCENT_COLOR }} />
-                                                <span>Masterclass de visualización</span>
+                                                <Database className="w-4 h-4" style={{ color: ACCENT_COLOR }} />
+                                                <span>Licencias de práctica SQL Server</span>
                                             </div>
                                             <div className="flex items-center gap-3 text-sm text-bitte-steel">
-                                                <Brain className="w-4 h-4" style={{ color: ACCENT_COLOR }} />
-                                                <span>Modelos de ML listos para usar</span>
+                                                <LayoutDashboard className="w-4 h-4" style={{ color: ACCENT_COLOR }} />
+                                                <span>Plantillas de reportes profesionales</span>
                                             </div>
                                             <div className="flex items-center gap-3 text-sm text-bitte-steel">
-                                                <LineChart className="w-4 h-4" style={{ color: ACCENT_COLOR }} />
-                                                <span>Proyectos de portafolio</span>
+                                                <Binary className="w-4 h-4" style={{ color: ACCENT_COLOR }} />
+                                                <span>Scripts de automatización SQL</span>
                                             </div>
                                             <div className="flex items-center gap-3 text-sm text-bitte-steel">
-                                                <Search className="w-4 h-4" style={{ color: ACCENT_COLOR }} />
-                                                <span>Mentoría personalizada</span>
+                                                <Award className="w-4 h-4" style={{ color: ACCENT_COLOR }} />
+                                                <span>Certificación Profesional</span>
                                             </div>
                                         </div>
                                     </div>

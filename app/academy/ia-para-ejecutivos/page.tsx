@@ -21,35 +21,39 @@ import Link from "next/link";
 
 const curriculum = [
     {
-        title: "Módulo 1: Fundamentos de IA para la Alta Dirección",
+        title: "Módulo 1: ¿Qué es la IA? (Para todos)",
         lessons: [
-            { title: "Historia y Evolución de la IA", duration: "15 min", type: "video" },
-            { title: "Diferencia entre ML, Deep Learning y GenAI", duration: "20 min", type: "video" },
-            { title: "El panorama actual de la IA en los negocios", duration: "10 min", type: "reading" },
+            { title: "La IA explicada sin tecnicismos: ¿cómo piensa una máquina?", duration: "15 min", type: "video" },
+            { title: "IA en tu teléfono: asistentes, recomendaciones y filtros", duration: "20 min", type: "video" },
+            { title: "Historia de la IA contada de forma simple", duration: "10 min", type: "reading" },
+            { title: "Actividad: Identifica la IA en tu día a día", duration: "10 min", type: "reading" },
         ]
     },
     {
-        title: "Módulo 2: Casos de Uso y Estrategia de Negocios",
+        title: "Módulo 2: IA en Casa y en el Trabajo",
         lessons: [
-            { title: "Identificación de oportunidades de IA", duration: "25 min", type: "video" },
-            { title: "ROI en proyectos de Inteligencia Artificial", duration: "15 min", type: "reading" },
-            { title: "Framework para la implementación estratégica", duration: "30 min", type: "video" },
+            { title: "Asistentes de voz: Alexa, Siri y Google — cómo sacarles partido", duration: "20 min", type: "video" },
+            { title: "Cómo usar ChatGPT para tareas del hogar y el trabajo", duration: "25 min", type: "video" },
+            { title: "IA para adultos mayores: herramientas de salud y compañía", duration: "20 min", type: "video" },
+            { title: "IA para niños: aprendizaje, juego y creatividad", duration: "15 min", type: "reading" },
         ]
     },
     {
-        title: "Módulo 3: Ética, Gobernanza y Riesgos",
+        title: "Módulo 3: Crear con IA — Sin Saber Programar",
         lessons: [
-            { title: "Privacidad y seguridad de datos", duration: "20 min", type: "video" },
-            { title: "Sesgos algorítmicos y responsabilidad corporativa", duration: "15 min", type: "reading" },
-            { title: "Marcos regulatorios internacionales (EU AI Act)", duration: "20 min", type: "video" },
+            { title: "Genera imágenes con IA: arte sin ser artista", duration: "25 min", type: "video" },
+            { title: "Escribe textos, cartas y correos con ayuda de la IA", duration: "20 min", type: "video" },
+            { title: "Traduce, resume y aprende idiomas con IA", duration: "15 min", type: "video" },
+            { title: "Actividad práctica: crea tu primer proyecto con IA", duration: "20 min", type: "reading" },
         ]
     },
     {
-        title: "Módulo 4: Transformación Organizacional",
+        title: "Módulo 4: IA Responsable y Segura",
         lessons: [
-            { title: "Preparando a tu equipo para la era de la IA", duration: "20 min", type: "video" },
-            { title: "Liderazgo en entornos automatizados", duration: "15 min", type: "video" },
-            { title: "Cierre y próximos pasos", duration: "10 min", type: "reading" },
+            { title: "¿Cómo proteger tu información personal?", duration: "15 min", type: "video" },
+            { title: "Fake news e imágenes falsas: cómo detectarlas", duration: "20 min", type: "video" },
+            { title: "El futuro de la IA: oportunidades y cómo prepararte", duration: "15 min", type: "video" },
+            { title: "Cierre: tu próximo paso en el mundo de la IA", duration: "10 min", type: "reading" },
         ]
     }
 ];
@@ -74,7 +78,7 @@ export default function CourseDetail() {
                         <ChevronRight className="w-4 h-4" />
                         <Link href="/academy" className="hover:text-white transition-colors">Academy</Link>
                         <ChevronRight className="w-4 h-4" />
-                        <span className="text-white font-medium">IA para Ejecutivos</span>
+                        <span className="text-white font-medium">IA en tu Vida Diaria</span>
                     </nav>
 
                     <div className="max-w-4xl">
@@ -87,11 +91,11 @@ export default function CourseDetail() {
                         </div>
 
                         <h1 className="text-5xl md:text-6xl font-extrabold text-white mb-6 tracking-tight">
-                            IA para Ejecutivos
+                            IA en tu Vida Diaria
                         </h1>
 
                         <p className="text-xl text-bitte-steel mb-8 max-w-2xl leading-relaxed">
-                            Transforma la toma de decisiones en tu organización y lidera el cambio estratégico utilizando Inteligencia Artificial de vanguardia.
+                            Descubre el mundo de la Inteligencia Artificial sin necesidad de experiencia previa. Un curso pensado para todos: niños, adultos mayores y cualquier persona curiosa que quiera entender y usar la IA en su día a día.
                         </p>
 
                         <div className="flex flex-wrap gap-6 text-sm">
@@ -101,7 +105,7 @@ export default function CourseDetail() {
                             </div>
                             <div className="flex items-center gap-2 text-white">
                                 <BarChart className="w-5 h-5 text-bitte-blue" />
-                                <span>Nivel: Avanzado</span>
+                                <span>Nivel: Sin experiencia requerida</span>
                             </div>
                             <div className="flex items-center gap-2 text-white">
                                 <Award className="w-5 h-5 text-bitte-blue" />
@@ -125,10 +129,10 @@ export default function CourseDetail() {
                                 <h2 className="text-3xl font-bold text-white mb-8 border-l-4 border-bitte-blue pl-4">¿Qué aprenderás?</h2>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     {[
-                                        "Diseño y ejecución de estrategias basadas en datos e IA.",
-                                        "Marcos éticos y legales para gobernanza algorítmica.",
-                                        "Gestión del cambio organizativo para una cultura AI-First.",
-                                        "Identificación de ROI y casos de uso críticos en tu sector."
+                                        "Entender qué es la IA y cómo funciona en tu vida cotidiana.",
+                                        "Usar asistentes de voz, ChatGPT y herramientas de IA sin complicaciones.",
+                                        "Crear imágenes, textos y traducciones con IA desde cero.",
+                                        "Protegerte de riesgos digitales y usar la IA de forma segura."
                                     ].map((item, i) => (
                                         <div key={i} className="p-6 rounded-xl bg-[#161B22] border border-white/5 flex gap-4 transition-all hover:bg-white/5 active:scale-[0.98]">
                                             <div className="flex-shrink-0">
@@ -192,10 +196,10 @@ export default function CourseDetail() {
                                 <h2 className="text-3xl font-bold text-white mb-8 border-l-4 border-bitte-blue pl-4">Requisitos</h2>
                                 <ul className="space-y-4">
                                     {[
-                                        "Experiencia en gestión de equipos o dirección estratégica.",
-                                        "Conocimientos básicos del panorama tecnológico actual.",
-                                        "No se requieren conocimientos previos de programación.",
-                                        "Empuje para liderar la transformación digital."
+                                        "Cero experiencia requerida — apto para cualquier edad.",
+                                        "Solo necesitas un teléfono, tablet o computadora con internet.",
+                                        "Ganas de aprender y curiosidad por el mundo digital.",
+                                        "Ideal para niños desde 10 años y adultos mayores sin límite de edad."
                                     ].map((req, i) => (
                                         <li key={i} className="flex gap-4 items-center group">
                                             <div className="w-2 h-2 rounded-full bg-bitte-blue group-hover:scale-150 transition-transform shadow-[0_0_10px_rgba(37,99,235,0.8)]" />
@@ -254,11 +258,11 @@ export default function CourseDetail() {
                                             <h4 className="text-sm font-bold text-white uppercase tracking-wider mb-2">Este curso incluye:</h4>
                                             <div className="flex items-center gap-3 text-sm text-bitte-steel">
                                                 <Zap className="w-4 h-4 text-bitte-blue" />
-                                                <span>Acceso de por vida</span>
+                                                <span>Acceso de por vida para toda la familia</span>
                                             </div>
                                             <div className="flex items-center gap-3 text-sm text-bitte-steel">
                                                 <Globe className="w-4 h-4 text-bitte-blue" />
-                                                <span>Recursos descargables</span>
+                                                <span>Guias visuales y material descargable</span>
                                             </div>
                                             <div className="flex items-center gap-3 text-sm text-bitte-steel">
                                                 <Star className="w-4 h-4 text-bitte-blue" />
@@ -274,7 +278,7 @@ export default function CourseDetail() {
 
                                 <div className="p-6 rounded-xl border border-white/5 bg-white/5">
                                     <h4 className="text-white font-bold mb-2">¿Tienes dudas?</h4>
-                                    <p className="text-sm text-bitte-steel mb-4">Habla con uno de nuestros asesores para más información sobre becas y planes.</p>
+                                    <p className="text-sm text-bitte-steel mb-4">Contáctanos y te ayudamos a elegir el plan ideal para ti o para tu familia.</p>
                                     <Button variant="ghost" className="w-full border border-white/10 hover:border-bitte-blue/50 text-bitte-steel hover:text-white">
                                         Hablar con un asesor
                                     </Button>

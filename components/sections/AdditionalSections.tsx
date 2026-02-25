@@ -36,14 +36,14 @@ const courses = [
         href: "/academy/excel-industrial",
     },
     {
-        name: "IA para Ejecutivos",
+        name: "IA en tu Vida Diaria",
         // Neural network / AI concept visual
         image: "https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=600&q=80&fit=crop",
         accentColor: "#2563EB",
         href: "/academy/ia-para-ejecutivos",
     },
     {
-        name: "Data Science",
+        name: "SQL Server & Power BI",
         // Data visualization / analytics visual
         image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80&fit=crop",
         accentColor: "#7C3AED",

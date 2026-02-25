@@ -21,35 +21,43 @@ import Link from "next/link";
 
 const curriculum = [
     {
-        title: "Módulo 1: Gestión de Datos a Gran Escala",
+        title: "Módulo 1: Fundamentos de Excel para Datos (Beginner)",
         lessons: [
-            { title: "Estructuras de datos para entornos industriales", duration: "20 min", type: "video" },
-            { title: "Limpieza de datos con Power Query", duration: "35 min", type: "video" },
-            { title: "Optimización de modelos de datos", duration: "15 min", type: "reading" },
+            { title: "Entorno de Excel: interfaz, atajos y configuración", duration: "20 min", type: "video" },
+            { title: "Tipos de datos, referencias y rangos inteligentes", duration: "25 min", type: "video" },
+            { title: "Fórmulas esenciales: SUMA, SI, BUSCARV, ÍNDICE/COINCIDIR", duration: "35 min", type: "video" },
+            { title: "Tablas dinámicas: fundamentos y primeros reportes", duration: "30 min", type: "video" },
+            { title: "Práctica: limpieza y estructuración de un dataset real", duration: "20 min", type: "reading" },
         ]
     },
     {
-        title: "Módulo 2: Automatización con Power Pivot y DAX",
+        title: "Módulo 2: Análisis de Datos Intermedio",
         lessons: [
-            { title: "Introducción al modelado dimensional", duration: "25 min", type: "video" },
-            { title: "Creación de medidas DAX avanzadas", duration: "40 min", type: "video" },
-            { title: "KPIs de rendimiento industrial", duration: "20 min", type: "reading" },
+            { title: "Fórmulas avanzadas: SUMAR.SI, CONTAR.SI, MATRICIALES", duration: "30 min", type: "video" },
+            { title: "Herramientas de análisis: Solver y Análisis de hipótesis", duration: "25 min", type: "video" },
+            { title: "Power Query: importación, transformación y limpieza de datos", duration: "40 min", type: "video" },
+            { title: "Segmentadores y líneas de tiempo en Tablas Dinámicas", duration: "20 min", type: "video" },
+            { title: "Caso práctico: análisis de ventas y KPIs comerciales", duration: "25 min", type: "reading" },
         ]
     },
     {
-        title: "Módulo 3: Visualización y Dashboards de Control",
+        title: "Módulo 3: Dashboards y Visualización Profesional",
         lessons: [
-            { title: "Principios de diseño de dashboards industriales", duration: "30 min", type: "video" },
-            { title: "Gráficos dinámicos y segmentadores", duration: "25 min", type: "video" },
-            { title: "Reportes automatizados por turno", duration: "20 min", type: "video" },
+            { title: "Principios de diseño de dashboards efectivos", duration: "20 min", type: "video" },
+            { title: "Gráficos dinámicos avanzados y minigráficos", duration: "30 min", type: "video" },
+            { title: "Formato condicional como herramienta de análisis visual", duration: "25 min", type: "video" },
+            { title: "Dashboard de seguimiento de procesos y OEE", duration: "35 min", type: "video" },
+            { title: "Automatización de reportes con Power Query + Tablas Dinámicas", duration: "30 min", type: "reading" },
         ]
     },
     {
-        title: "Módulo 4: Integración y Macros (VBA)",
+        title: "Módulo 4: Optimización de Procesos y Nivel Experto",
         lessons: [
-            { title: "Introducción a la programación en Excel", duration: "20 min", type: "video" },
-            { title: "Automatización de tareas repetitivas", duration: "30 min", type: "video" },
-            { title: "Seguridad y mantenimiento de macros", duration: "15 min", type: "reading" },
+            { title: "Modelado de datos con Power Pivot y modelo estrella", duration: "35 min", type: "video" },
+            { title: "Medidas DAX para KPIs de operaciones y logística", duration: "40 min", type: "video" },
+            { title: "Macros VBA: automatización de tareas repetitivas", duration: "30 min", type: "video" },
+            { title: "Simulación de escenarios y optimización con Solver", duration: "25 min", type: "video" },
+            { title: "Proyecto final: sistema de control y análisis de procesos", duration: "45 min", type: "reading" },
         ]
     }
 ];
@@ -91,21 +99,21 @@ export default function ExcelIndustrialDetail() {
                         </div>
 
                         <h1 className="text-5xl md:text-6xl font-extrabold text-white mb-6 tracking-tight">
-                            Excel Industrial
+                            Excel: De Beginner a Experto
                         </h1>
 
                         <p className="text-xl text-bitte-steel mb-8 max-w-2xl leading-relaxed">
-                            Domina el análisis de datos masivos y la automatización de reportes para entornos de manufactura y operaciones de alta demanda.
+                            Domina Excel desde cero hasta el nivel experto, con enfoque en análisis de datos real y optimización de procesos empresariales. Aprende con casos prácticos y construye dashboards que generan decisiones.
                         </p>
 
                         <div className="flex flex-wrap gap-6 text-sm">
                             <div className="flex items-center gap-2 text-white">
                                 <Clock className="w-5 h-5" style={{ color: ACCENT_COLOR }} />
-                                <span>Duración: 6 Semanas</span>
+                                <span>Duración: 8 Semanas</span>
                             </div>
                             <div className="flex items-center gap-2 text-white">
                                 <BarChart className="w-5 h-5" style={{ color: ACCENT_COLOR }} />
-                                <span>Nivel: Intermedio - Avanzado</span>
+                                <span>Nivel: Beginner → Experto</span>
                             </div>
                             <div className="flex items-center gap-2 text-white">
                                 <Award className="w-5 h-5" style={{ color: ACCENT_COLOR }} />
@@ -126,10 +134,10 @@ export default function ExcelIndustrialDetail() {
                                 <h2 className="text-3xl font-bold text-white mb-8 border-l-4 pl-4" style={{ borderColor: ACCENT_COLOR }}>¿Qué aprenderás?</h2>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     {[
-                                        "Automatización de limpieza de datos con Power Query.",
-                                        "Modelado complejo para reportes de planta y logística.",
+                                        "Entiende el entorno de Excel para el análisis de datos.",
+                                        "Aprende a utilizar las herramientas de Excel para el análisis de datos.",
                                         "Desarrollo de cuadros de mando (Dashboards) dinámicos.",
-                                        "Optimización de procesos mediante macros y VBA."
+                                        "Optimización de procesos mediante Excel."
                                     ].map((item, i) => (
                                         <div key={i} className="p-6 rounded-xl bg-[#161B22] border border-white/5 flex gap-4 transition-all hover:bg-white/5 active:scale-[0.98]">
                                             <div className="flex-shrink-0">
@@ -192,10 +200,10 @@ export default function ExcelIndustrialDetail() {
                                 <h2 className="text-3xl font-bold text-white mb-8 border-l-4 pl-4" style={{ borderColor: ACCENT_COLOR }}>Requisitos</h2>
                                 <ul className="space-y-4">
                                     {[
-                                        "Uso básico de Microsoft Excel (Fórmulas básicas).",
-                                        "Orientación a la gestión por indicadores.",
-                                        "Acceso a una PC con Excel 2019 o superior (o Office 365).",
-                                        "Interés en optimización de procesos operativos."
+                                        "No se requiere experiencia previa — empezamos desde cero.",
+                                        "Acceso a una PC con Excel 2019 o superior (o Microsoft 365).",
+                                        "Ganas de aprender y aplicar Excel en contextos reales.",
+                                        "Conexión a internet para descargar los archivos de práctica."
                                     ].map((req, i) => (
                                         <li key={i} className="flex gap-4 items-center group">
                                             <div className="w-2 h-2 rounded-full group-hover:scale-150 transition-transform shadow-[0_0_10px_rgba(5,150,105,0.8)]" style={{ background: ACCENT_COLOR }} />
@@ -231,7 +239,7 @@ export default function ExcelIndustrialDetail() {
                                         <div className="space-y-2 mb-8">
                                             <h4 className="text-white text-xl font-bold">Consultar Disponibilidad</h4>
                                             <p className="text-bitte-steel text-sm leading-relaxed">
-                                                Optimiza los procesos de tu empresa hoy mismo con formación personalizada.
+                                                Aprende Excel desde cero y conviértete en el experto en datos de tu equipo.
                                             </p>
                                         </div>
 
@@ -247,15 +255,15 @@ export default function ExcelIndustrialDetail() {
                                             <h4 className="text-sm font-bold text-white uppercase tracking-wider mb-2">Este curso incluye:</h4>
                                             <div className="flex items-center gap-3 text-sm text-bitte-steel">
                                                 <Table className="w-4 h-4" style={{ color: ACCENT_COLOR }} />
-                                                <span>Plantillas industriales premium</span>
+                                                <span>Archivos y datasets de práctica reales</span>
                                             </div>
                                             <div className="flex items-center gap-3 text-sm text-bitte-steel">
                                                 <Database className="w-4 h-4" style={{ color: ACCENT_COLOR }} />
-                                                <span>Acceso a datasets reales</span>
+                                                <span>Plantillas de dashboards descargables</span>
                                             </div>
                                             <div className="flex items-center gap-3 text-sm text-bitte-steel">
                                                 <Cpu className="w-4 h-4" style={{ color: ACCENT_COLOR }} />
-                                                <span>Ejercicios de automatización</span>
+                                                <span>Proyecto final con caso empresarial</span>
                                             </div>
                                             <div className="flex items-center gap-3 text-sm text-bitte-steel">
                                                 <Award className="w-4 h-4" style={{ color: ACCENT_COLOR }} />
