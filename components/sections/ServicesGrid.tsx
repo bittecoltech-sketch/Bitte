@@ -9,27 +9,22 @@ const allServices = [
     {
         icon: BrainCircuit,
         title: "Expert Guidance",
-        desc: "IA Consultiva que entiende tu negocio.",
+        desc: "IA consultiva que entiende tu negocio, analiza tus procesos y te recomienda estrategias de automatización personalizadas para maximizar resultados y eficiencia operativa."
     },
     {
         icon: Cpu,
         title: "Fast Setup",
-        desc: "Despliegue de IoT plug-and-play.",
+        desc: "Despliegue de IoT plug-and-play, integración rápida de sensores y dispositivos industriales, sin interrupciones en tu operación. Configuración ágil y soporte dedicado."
     },
     {
         icon: BarChart3,
         title: "Advanced Analytics",
-        desc: "Predicción de fallos con 99% de precisión.",
-    },
-    {
-        icon: Layout,
-        title: "Seamless Integration",
-        desc: "Conectores nativos para SAP, Oracle y Salesforce.",
+        desc: "Predicción de fallos con 99% de precisión, monitoreo en tiempo real, alertas inteligentes y visualización de KPIs críticos para anticipar riesgos y tomar decisiones informadas."
     },
     {
         icon: CheckCircle,
         title: "Customizable Solutions",
-        desc: "Adaptamos el núcleo del sistema a tus reglas.",
+        desc: "Adaptamos el núcleo del sistema a tus reglas, flujos y necesidades específicas. Soluciones flexibles, escalables y alineadas con tu visión de negocio."
     }
 ];
 
