@@ -70,6 +70,20 @@ export default function Hero() {
                 </AnimatePresence>
             </div>
 
+            {/* Slide Indicators - justo debajo de la navbar, fuera del contenido */}
+            <div className="absolute top-[88px] left-1/2 -translate-x-1/2 z-30 flex gap-3">
+                {slides.map((_, i) => (
+                    <button
+                        key={i}
+                        onClick={() => setCurrentSlide(i)}
+                        className={`h-1 transition-all duration-500 rounded-full box-content ${i === currentSlide
+                            ? 'w-12 bg-white shadow-[0_0_15px_rgba(255,255,255,0.8)]'
+                            : 'w-3 bg-white/20 hover:bg-white/40'
+                            }`}
+                    />
+                ))}
+            </div>
+
             {/* Content */}
             <div className="container mx-auto px-6 relative z-10 pt-12 flex flex-col items-center justify-center text-center">
                 <motion.div
@@ -110,20 +124,6 @@ export default function Hero() {
                         </Button>
                     </div>
                 </motion.div>
-
-                {/* Slide Indicators */}
-                <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-3 z-30">
-                    {slides.map((_, i) => (
-                        <button
-                            key={i}
-                            onClick={() => setCurrentSlide(i)}
-                            className={`h-1 transition-all duration-500 rounded-full box-content ${i === currentSlide
-                                ? 'w-12 bg-white shadow-[0_0_15px_rgba(255,255,255,0.8)]'
-                                : 'w-3 bg-white/20 hover:bg-white/40'
-                                }`}
-                        />
-                    ))}
-                </div>
             </div>
         </section>
     );
