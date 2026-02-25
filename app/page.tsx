@@ -1,4 +1,6 @@
+
 import Hero from "@/components/sections/Hero";
+import TechShowcase from "@/components/sections/TechShowcase";
 import PlatformPreview from "@/components/sections/PlatformPreview";
 import ServicesGrid from "@/components/sections/ServicesGrid";
 import InnovationStats from "@/components/sections/InnovationStats";
@@ -9,6 +11,7 @@ export default function Home() {
   return (
     <>
       <Hero />
+      <TechShowcase />
       <PlatformPreview />
       <ServicesGrid />
       <InnovationStats />

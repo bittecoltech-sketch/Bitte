@@ -8,9 +8,9 @@ import Link from "next/link";
 import Image from "next/image";
 
 const navItems = [
+    { name: "Data Lab", href: "#datalab" },
     { name: "Servicios", href: "#services" },
     { name: "Demos de Productos", href: "#demos" },
-    { name: "Data Lab", href: "#datalab" },
     { name: "Bitte Tech", href: "#education" },
 ];
 
