@@ -232,8 +232,8 @@ export default function PlatformPreview() {
                                             <ResponsiveContainer width="100%" height="100%">
                                                 <AreaChart
                                                     data={currentData.chart}
-                                                    onMouseMove={(e) => {
-                                                        if (typeof e?.activeTooltipIndex === 'number') {
+                                                    onMouseMove={(e: any) => {
+                                                        if (e && e.activeTooltipIndex !== undefined) {
                                                             setHoveredIndex(e.activeTooltipIndex);
                                                         }
                                                     }}
@@ -257,7 +257,7 @@ export default function PlatformPreview() {
                                                         fillOpacity={1}
                                                         fill="url(#colorChart)"
                                                         animationDuration={1000}
-                                                        activeDot={{ r: 6, strokeWidth: 0, fill: '#3B82F6 shadow-[0_0_10px_#3B82F6]' }}
+                                                        activeDot={{ r: 6, strokeWidth: 0, fill: '#3B82F6' }}
                                                     />
                                                 </AreaChart>
                                             </ResponsiveContainer>
