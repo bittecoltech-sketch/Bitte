@@ -8,7 +8,7 @@ export default function Footer() {
                     <div className="flex items-center gap-3 mb-4">
                         <div className="relative w-10 h-10">
                             <Image
-                                src="/logo.png"
+                                src="/logo-bitte.png"
                                 alt="BITTE Logo"
                                 fill
                                 className="object-contain"

@@ -52,16 +52,7 @@ const VIEW_DATA = {
     }
 };
 
-const logos = [
-    { Icon: Cloud, label: "AWS" },
-    { Icon: Database, label: "MongoDB" },
-    { Icon: Cpu, label: "TensorFlow" },
-    { Icon: Shield, label: "Auth0" },
-    { Icon: Globe, label: "Vercel" },
-    { Icon: Server, label: "Docker" },
-    { Icon: Cloud, label: "Azure" },
-    { Icon: Database, label: "Postgres" },
-];
+// Eliminado: logos de tecnologías
 
 function InteractiveBox({
     label,
@@ -136,13 +127,7 @@ export default function PlatformPreview() {
 
                 {/* Header */}
                 <div className="text-center mb-16">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-bitte-blue/10 border border-bitte-blue/20 text-bitte-blue text-xs font-mono mb-6">
-                        <span className="relative flex h-2 w-2">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-bitte-blue opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-2 w-2 bg-bitte-blue"></span>
-                        </span>
-                        Update 2.0 : AI Integration
-                    </div>
+                    {/* Eliminado: Update 2.0 : AI Integration */}
                     <h2 className="text-5xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-br from-white via-white to-white/50 pb-2">
                         Centraliza tu Inteligencia Industrial
                     </h2>
@@ -232,8 +217,8 @@ export default function PlatformPreview() {
                                             <ResponsiveContainer width="100%" height="100%">
                                                 <AreaChart
                                                     data={currentData.chart}
-                                                    onMouseMove={(e: any) => {
-                                                        if (e && e.activeTooltipIndex !== undefined) {
+                                                    onMouseMove={(e) => {
+                                                        if (typeof e?.activeTooltipIndex === 'number') {
                                                             setHoveredIndex(e.activeTooltipIndex);
                                                         }
                                                     }}
@@ -241,8 +226,8 @@ export default function PlatformPreview() {
                                                 >
                                                     <defs>
                                                         <linearGradient id="colorChart" x1="0" y1="0" x2="0" y2="1">
-                                                            <stop offset="5%" stopColor="#3B82F6" stopOpacity={0.3} />
-                                                            <stop offset="95%" stopColor="#3B82F6" stopOpacity={0} />
+                                                            <stop offset="5%" stopColor="#2563EB" stopOpacity={0.3} />
+                                                            <stop offset="95%" stopColor="#2563EB" stopOpacity={0} />
                                                         </linearGradient>
                                                     </defs>
                                                     <Tooltip
@@ -252,12 +237,12 @@ export default function PlatformPreview() {
                                                     <Area
                                                         type="monotone"
                                                         dataKey="val"
-                                                        stroke="#3B82F6"
+                                                        stroke="#2563EB"
                                                         strokeWidth={3}
                                                         fillOpacity={1}
                                                         fill="url(#colorChart)"
                                                         animationDuration={1000}
-                                                        activeDot={{ r: 6, strokeWidth: 0, fill: '#3B82F6' }}
+                                                        activeDot={{ r: 6, strokeWidth: 0, fill: '#2563EB shadow-[0_0_10px_#2563EB]' }}
                                                     />
                                                 </AreaChart>
                                             </ResponsiveContainer>
@@ -336,22 +321,7 @@ export default function PlatformPreview() {
                     <div className="absolute -inset-10 bg-bitte-blue/20 blur-[100px] -z-10 rounded-full opacity-50" />
                 </motion.div>
 
-                {/* Logo Marquee */}
-                <div className="mt-20 relative">
-                    <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-bitte-base to-transparent z-10" />
-                    <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-bitte-base to-transparent z-10" />
-
-                    <div className="flex gap-16 items-center justify-center opacity-50 grayscale hover:grayscale-0 transition-all duration-500 overflow-hidden">
-                        <div className="flex gap-16 animate-infinite-scroll min-w-max">
-                            {[...logos, ...logos].map((logo, i) => (
-                                <div key={i} className="flex items-center gap-2 text-white/60">
-                                    <logo.Icon className="w-6 h-6" />
-                                    <span className="font-bold text-lg">{logo.label}</span>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </div>
+                {/* Logo Marquee eliminado, ahora los logos están en TechShowcase */}
             </div>
         </section>
     );

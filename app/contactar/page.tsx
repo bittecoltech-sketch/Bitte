@@ -1,8 +1,6 @@
 "use client";
 
 import React from "react";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
 import { motion } from "framer-motion";
 import { Mail, Phone, MapPin, Send } from "lucide-react";
 import { Button } from "@/components/ui/primitives";
@@ -10,7 +8,6 @@ import { Button } from "@/components/ui/primitives";
 export default function ContactPage() {
     return (
         <div className="min-h-screen bg-bitte-base text-white selection:bg-bitte-blue/30 selection:text-white">
-            <Navbar />
 
             <main className="pt-32 pb-20">
                 <div className="container mx-auto px-6">
@@ -111,8 +108,6 @@ export default function ContactPage() {
                     </div>
                 </div>
             </main>
-
-            <Footer />
         </div>
     );
 }

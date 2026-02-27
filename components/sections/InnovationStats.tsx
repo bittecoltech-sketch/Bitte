@@ -57,25 +57,33 @@ export default function InnovationStats() {
                         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-bitte-blue/20 to-transparent h-1/4 animate-[scan_3s_ease-in-out_infinite]" />
 
                         {/* Floating Network Nodes */}
-                        <div className="absolute top-1/4 left-0 w-3 h-3 bg-bitte-blue rounded-full shadow-[0_0_10px_#3B82F6]" />
+                        <div className="absolute top-1/4 left-0 w-3 h-3 bg-bitte-blue rounded-full shadow-[0_0_10px_#2563EB]" />
                         <div className="absolute bottom-1/4 right-10 w-2 h-2 bg-white rounded-full shadow-[0_0_10px_white]" />
                     </div>
-
-                    {/* Stats Bar (Glassmorphic Overlay) */}
-                    <div className="absolute -bottom-10 left-0 right-0 p-6 bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl flex flex-wrap justify-around gap-6 text-center shadow-xl">
-                        {[
-                            { val: "1.000+", label: "Clientes Satisfechos" },
-                            { val: "20+", label: "Años de Experiencia" },
-                            { val: "100%", label: "Cumplimiento Legal" },
-                            { val: "500+", label: "Proyectos Completados" }
-                        ].map((stat, i) => (
-                            <div key={i}>
-                                <div className="text-2xl md:text-3xl font-bold text-white mb-1">{stat.val}</div>
-                                <div className="text-xs text-bitte-steel uppercase tracking-wider">{stat.label}</div>
-                            </div>
-                        ))}
-                    </div>
                 </motion.div>
+            </div>
+
+            {/* Cards con frases honestas - ahora en una fila aparte */}
+            <div className="container mx-auto px-6 mt-16 flex flex-wrap justify-center gap-8 text-center">
+                {[
+                    {
+                        title: "Enfocados en la excelencia y la innovación",
+                        desc: "Nuestro equipo está comprometido con la calidad y la mejora continua en cada proyecto."
+                    },
+                    {
+                        title: "Soluciones personalizadas para cada cliente",
+                        desc: "Diseñamos estrategias y sistemas a medida, adaptados a las necesidades reales de tu empresa."
+                    },
+                    {
+                        title: "Compromiso total con la seguridad y la transparencia",
+                        desc: "Protegemos tus datos y procesos, garantizando confianza y claridad en cada etapa."
+                    }
+                ].map((card, i) => (
+                    <div key={i} className="max-w-xs bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-xl">
+                        <div className="text-lg md:text-xl font-bold text-white mb-2">{card.title}</div>
+                        <div className="text-sm text-bitte-steel leading-relaxed">{card.desc}</div>
+                    </div>
+                ))}
             </div>
         </section>
     );

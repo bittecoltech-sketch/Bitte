@@ -8,9 +8,9 @@ import Link from "next/link";
 import Image from "next/image";
 
 const navItems = [
+    { name: "Data Lab", href: "#datalab" },
     { name: "Servicios", href: "#services" },
     { name: "Demos de Productos", href: "#demos" },
-    { name: "Data Lab", href: "#datalab" },
     { name: "Bitte Tech", href: "#education" },
 ];
 
@@ -36,7 +36,7 @@ export default function Navbar() {
                 <Link href="/" className="flex items-center gap-3 group">
                     <div className="relative w-11 h-11 transition-all duration-500 group-hover:scale-105">
                         <Image
-                            src="/logo.png"
+                            src="/logo-bitte.png"
                             alt="BITTE Logo"
                             fill
                             className="object-contain"

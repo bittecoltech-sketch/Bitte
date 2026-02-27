@@ -5,31 +5,32 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/primitives";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 const slides = [
     {
         id: 1,
-        image: "/hero-ai.png",
+        image: "/hero-ai-v2.png",
         label: "Neural Architecture",
         tagline: "INTELIGENCIA QUE PIENSA",
         desc: "Sistemas cognitivos que automatizan el 80% de tu flujo operativo.",
-        color: "text-bitte-blue",
+        color: "text-[#1E3A8A]",
     },
     {
         id: 2,
-        image: "/hero-iot.png",
+        image: "/hero-iot-v2.png",
         label: "IoT Connectivity",
         tagline: "CONTROL TOTAL",
         desc: "Conexión físico-digital en tiempo real. Tu fábrica en tu bolsillo.",
-        color: "text-bitte-gold",
+        color: "text-[#06B6D4]",
     },
     {
         id: 3,
-        image: "/hero-data.png",
+        image: "/hero-data-v2.png",
         label: "Data Intelligence",
         tagline: "VISIÓN DEL FUTURO",
         desc: "Transformamos ruido en señales de mercado claras y accionables.",
-        color: "text-bitte-green",
+        color: "text-[#1E3A8A]",
     }
 ];
 
@@ -70,6 +71,20 @@ export default function Hero() {
                 </AnimatePresence>
             </div>
 
+            {/* Slide Indicators - justo debajo de la navbar, fuera del contenido */}
+            <div className="absolute top-[88px] left-1/2 -translate-x-1/2 z-30 flex gap-3">
+                {slides.map((_, i) => (
+                    <button
+                        key={i}
+                        onClick={() => setCurrentSlide(i)}
+                        className={`h-1 transition-all duration-500 rounded-full box-content ${i === currentSlide
+                            ? 'w-12 bg-white shadow-[0_0_15px_rgba(255,255,255,0.8)]'
+                            : 'w-3 bg-white/20 hover:bg-white/40'
+                            }`}
+                    />
+                ))}
+            </div>
+
             {/* Content */}
             <div className="container mx-auto px-6 relative z-10 pt-12 flex flex-col items-center justify-center text-center">
                 <motion.div
@@ -87,9 +102,11 @@ export default function Hero() {
                         </span>
                     </div>
 
-                    <h1 className="text-6xl md:text-8xl lg:text-9xl font-black leading-[0.9] mb-8 tracking-tighter text-white uppercase drop-shadow-2xl">
-                        BRIDGE TO <br />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-bitte-blue via-white to-bitte-gold">
+                    <h1 className="text-6xl md:text-8xl lg:text-9xl font-black leading-[0.9] mb-8 tracking-tighter uppercase drop-shadow-2xl">
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#1E3A8A] via-[#06B6D4] via-[#22C55E] via-[#FACC15] via-[#F97316] to-[#EF4444] animate-gradient-x bg-[length:200%_auto]">
+                            BRIDGE TO
+                        </span> <br />
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#1E3A8A] via-[#06B6D4] via-[#22C55E] via-[#FACC15] via-[#F97316] to-[#EF4444] animate-gradient-x bg-[length:200%_auto]">
                             THE FUTURE
                         </span>
                     </h1>
@@ -99,29 +116,19 @@ export default function Hero() {
                     </p>
 
                     <div className="flex flex-col sm:flex-row gap-6 w-full justify-center">
-                        <Button variant="glow" size="lg" className="h-16 px-12 text-lg rounded-full w-full sm:w-auto shadow-2xl shadow-bitte-blue/20">
-                            Iniciar Transformación
-                        </Button>
-                        <Button variant="outline" size="lg" className="h-16 px-12 text-lg rounded-full w-full sm:w-auto bg-black/40 backdrop-blur-md border-white/20 hover:bg-white hover:text-black hover:border-white">
-                            Ver Demo Interactiva
-                            <ArrowRight className="ml-2 w-5 h-5" />
-                        </Button>
+                        <Link href="/transformacion" className="w-full sm:w-auto">
+                            <Button variant="glow" size="lg" className="h-16 px-12 text-lg rounded-full w-full shadow-2xl shadow-bitte-blue/20">
+                                Iniciar Transformación
+                            </Button>
+                        </Link>
+                        <Link href="/soluciones" className="w-full sm:w-auto">
+                            <Button variant="outline" size="lg" className="h-16 px-12 text-lg rounded-full w-full bg-black/40 backdrop-blur-md border-white/20 hover:bg-white hover:text-black hover:border-white">
+                                Ver Demos Interactivas
+                                <ArrowRight className="ml-2 w-5 h-5" />
+                            </Button>
+                        </Link>
                     </div>
                 </motion.div>
-
-                {/* Slide Indicators */}
-                <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-3 z-30">
-                    {slides.map((_, i) => (
-                        <button
-                            key={i}
-                            onClick={() => setCurrentSlide(i)}
-                            className={`h-1 transition-all duration-500 rounded-full box-content ${i === currentSlide
-                                ? 'w-12 bg-white shadow-[0_0_15px_rgba(255,255,255,0.8)]'
-                                : 'w-3 bg-white/20 hover:bg-white/40'
-                                }`}
-                        />
-                    ))}
-                </div>
             </div>
         </section>
     );

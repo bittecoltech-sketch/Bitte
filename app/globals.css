@@ -2,14 +2,22 @@
 
 @theme {
   /* Colors */
-  --color-bitte-base: #050505;
+  /* Colors - Adapted to Logo */
+  --color-bitte-base: #020408;
+  /* Deeper black */
   --color-bitte-void: #0B1121;
   --color-bitte-steel: #94A3B8;
   --color-bitte-white: #FFFFFF;
-  --color-bitte-blue: #3B82F6;
-  --color-bitte-gold: #EAB308;
-  --color-bitte-green: #10B981;
-  --color-bitte-coral: #EF4444;
+
+  /* Logo Palette */
+  --color-bitte-blue: #2563EB;
+  /* Royal Blue from logo top-left */
+  --color-bitte-gold: #F59E0B;
+  /* Amber Gold from logo mid-right */
+  --color-bitte-green: #059669;
+  /* Emerald/Teal from logo mid-left */
+  --color-bitte-coral: #DC2626;
+  /* Ruby Red from logo bottom */
 
   /* Animations */
   --animate-pulse-slow: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
@@ -27,8 +35,22 @@
     }
   }
 
+  @keyframes gradient-x {
+
+    0%,
+    100% {
+      background-position: 0% 50%;
+    }
+
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  --animate-gradient-x: gradient-x 3s ease infinite;
+
   /* Backgrounds */
-  --background-image-industrial-glow: conic-gradient(from 180deg at 50% 50%, #3B82F6 0deg, #10B981 180deg, #EAB308 360deg);
+  --background-image-industrial-glow: conic-gradient(from 180deg at 50% 50%, #2563EB 0deg, #059669 180deg, #F59E0B 360deg);
 }
 
 /* Custom Utilities that use the theme */
