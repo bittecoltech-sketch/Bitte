@@ -95,12 +95,12 @@ RULES:
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
-interface TextChartDataPoint { name: string; value: number;[key: string]: string | number; }
+interface TextChartDataPoint { name: string; value: number;[key: string]: any; }
 interface TextChartSection { title: string; data: TextChartDataPoint[]; }
 interface TextChartPayload { barChart: TextChartSection; pieChart: TextChartSection; lineChart: TextChartSection; }
 
 interface KPI { name: string; value: string; description: string; trend?: "up" | "down" | "neutral"; }
-interface ExcelChartData { name: string; value: number;[key: string]: string | number; }
+interface ExcelChartData { name: string; value: number;[key: string]: any; }
 interface ExcelChart { type: "bar" | "line" | "pie"; title: string; insight: string; data: ExcelChartData[]; }
 interface BIResult { kpis: KPI[]; charts: ExcelChart[]; insights: string[]; executive_summary: string; }
 
