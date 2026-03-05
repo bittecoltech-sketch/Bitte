@@ -220,7 +220,7 @@ function TextGeneratedCharts({ charts }: { charts: TextChartPayload }) {
                             <span className="text-xs font-semibold text-bitte-steel uppercase tracking-wider">{charts.barChart.title}</span>
                         </div>
                         <ResponsiveContainer width="100%" height={220}>
-                            <BarChart data={charts.barChart.data} margin={{ top: 5, right: 10, left: -10, bottom: 5 }}>
+                            <BarChart data={charts.barChart.data as any[]} margin={{ top: 5, right: 10, left: -10, bottom: 5 }}>
                                 <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
                                 <XAxis dataKey="name" stroke="#64748b" fontSize={11} tickLine={false} axisLine={false} />
                                 <YAxis stroke="#64748b" fontSize={11} tickLine={false} axisLine={false} />
@@ -240,7 +240,7 @@ function TextGeneratedCharts({ charts }: { charts: TextChartPayload }) {
                         </div>
                         <ResponsiveContainer width="100%" height={220}>
                             <PieChart>
-                                <Pie data={charts.pieChart.data} cx="50%" cy="50%" innerRadius={55} outerRadius={85} paddingAngle={3} dataKey="value">
+                                <Pie data={charts.pieChart.data as any[]} cx="50%" cy="50%" innerRadius={55} outerRadius={85} paddingAngle={3} dataKey="value">
                                     {charts.pieChart.data.map((_, idx) => <Cell key={idx} fill={COLORS[idx % COLORS.length]} />)}
                                 </Pie>
                                 <Tooltip contentStyle={{ backgroundColor: "#0B1121", borderColor: "#1e293b", borderRadius: "8px" }} itemStyle={{ color: "#fff" }} formatter={(val: any) => [`${val}`, ""]} />
@@ -256,7 +256,7 @@ function TextGeneratedCharts({ charts }: { charts: TextChartPayload }) {
                             <span className="text-xs font-semibold text-bitte-steel uppercase tracking-wider">{charts.lineChart.title}</span>
                         </div>
                         <ResponsiveContainer width="100%" height={220}>
-                            <LineChart data={charts.lineChart.data} margin={{ top: 5, right: 10, left: -10, bottom: 5 }}>
+                            <LineChart data={charts.lineChart.data as any[]} margin={{ top: 5, right: 10, left: -10, bottom: 5 }}>
                                 <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
                                 <XAxis dataKey="name" stroke="#64748b" fontSize={11} tickLine={false} axisLine={false} />
                                 <YAxis stroke="#64748b" fontSize={11} tickLine={false} axisLine={false} />
@@ -301,7 +301,7 @@ function ExcelDynamicChart({ chart }: { chart: ExcelChart }) {
             <div className="mt-4">
                 <ResponsiveContainer width="100%" height={220}>
                     {chart.type === "bar" ? (
-                        <BarChart data={chart.data} margin={{ top: 5, right: 5, left: -15, bottom: 5 }}>
+                        <BarChart data={chart.data as any[]} margin={{ top: 5, right: 5, left: -15, bottom: 5 }}>
                             <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
                             <XAxis dataKey="name" stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} />
                             <YAxis stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} />
@@ -311,7 +311,7 @@ function ExcelDynamicChart({ chart }: { chart: ExcelChart }) {
                             </Bar>
                         </BarChart>
                     ) : chart.type === "line" ? (
-                        <LineChart data={chart.data} margin={{ top: 5, right: 5, left: -15, bottom: 5 }}>
+                        <LineChart data={chart.data as any[]} margin={{ top: 5, right: 5, left: -15, bottom: 5 }}>
                             <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
                             <XAxis dataKey="name" stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} />
                             <YAxis stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} />
@@ -320,7 +320,7 @@ function ExcelDynamicChart({ chart }: { chart: ExcelChart }) {
                         </LineChart>
                     ) : (
                         <PieChart>
-                            <Pie data={chart.data} cx="50%" cy="50%" innerRadius={50} outerRadius={80} paddingAngle={3} dataKey="value">
+                            <Pie data={chart.data as any[]} cx="50%" cy="50%" innerRadius={50} outerRadius={80} paddingAngle={3} dataKey="value">
                                 {chart.data.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
                             </Pie>
                             <Tooltip contentStyle={{ backgroundColor: "#0B1121", borderColor: "#1e293b", borderRadius: "8px", fontSize: "12px" }} itemStyle={{ color: "#fff" }} />
