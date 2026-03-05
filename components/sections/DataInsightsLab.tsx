@@ -240,7 +240,7 @@ function TextGeneratedCharts({ charts }: { charts: TextChartPayload }) {
                         </div>
                         <ResponsiveContainer width="100%" height={220}>
                             <PieChart>
-                                <Pie data={charts.pieChart.data as any} cx="50%" cy="50%" innerRadius={55} outerRadius={85} paddingAngle={3} dataKey="value">
+                                <Pie data={charts.pieChart.data as any} cx="50%" cy="50%" innerRadius={55} outerRadius={80}>
                                     {charts.pieChart.data.map((_, idx) => <Cell key={idx} fill={COLORS[idx % COLORS.length]} />)}
                                 </Pie>
                                 <Tooltip contentStyle={{ backgroundColor: "#0B1121", borderColor: "#1e293b", borderRadius: "8px" }} itemStyle={{ color: "#fff" }} formatter={(val: number) => [`${val}`, ""]} />
