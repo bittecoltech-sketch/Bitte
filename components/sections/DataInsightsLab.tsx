@@ -95,7 +95,7 @@ RULES:
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
-interface TextChartDataPoint { name: string; value: number; }
+interface TextChartDataPoint { name: string; value: number;[key: string]: string | number; }
 interface TextChartSection { title: string; data: TextChartDataPoint[]; }
 interface TextChartPayload { barChart: TextChartSection; pieChart: TextChartSection; lineChart: TextChartSection; }
 
@@ -243,7 +243,7 @@ function TextGeneratedCharts({ charts }: { charts: TextChartPayload }) {
                                 <Pie data={charts.pieChart.data} cx="50%" cy="50%" innerRadius={55} outerRadius={85} paddingAngle={3} dataKey="value">
                                     {charts.pieChart.data.map((_, idx) => <Cell key={idx} fill={COLORS[idx % COLORS.length]} />)}
                                 </Pie>
-                                <Tooltip contentStyle={{ backgroundColor: "#0B1121", borderColor: "#1e293b", borderRadius: "8px" }} itemStyle={{ color: "#fff" }} formatter={(val: number) => [`${val}`, ""]} />
+                                <Tooltip contentStyle={{ backgroundColor: "#0B1121", borderColor: "#1e293b", borderRadius: "8px" }} itemStyle={{ color: "#fff" }} formatter={(val: any) => [`${val}`, ""]} />
                                 <Legend iconType="circle" iconSize={8} formatter={(value) => <span style={{ color: "#94a3b8", fontSize: "11px" }}>{value}</span>} />
                             </PieChart>
                         </ResponsiveContainer>
@@ -654,8 +654,8 @@ export default function DataInsightsLab() {
                         <button
                             onClick={() => setActiveTab("text")}
                             className={`relative flex items-center justify-center gap-3 py-4 px-6 rounded-xl font-semibold text-sm transition-all duration-300 ${activeTab === "text"
-                                    ? "bg-gradient-to-r from-bitte-blue to-bitte-green text-white shadow-[0_0_20px_rgba(37,99,235,0.4)]"
-                                    : "text-bitte-steel hover:text-white hover:bg-white/5"
+                                ? "bg-gradient-to-r from-bitte-blue to-bitte-green text-white shadow-[0_0_20px_rgba(37,99,235,0.4)]"
+                                : "text-bitte-steel hover:text-white hover:bg-white/5"
                                 }`}
                         >
                             <Brain className="w-5 h-5 shrink-0" />
@@ -667,8 +667,8 @@ export default function DataInsightsLab() {
                         <button
                             onClick={() => setActiveTab("excel")}
                             className={`relative flex items-center justify-center gap-3 py-4 px-6 rounded-xl font-semibold text-sm transition-all duration-300 ${activeTab === "excel"
-                                    ? "bg-gradient-to-r from-bitte-gold to-orange-500 text-white shadow-[0_0_20px_rgba(245,158,11,0.4)]"
-                                    : "text-bitte-steel hover:text-white hover:bg-white/5"
+                                ? "bg-gradient-to-r from-bitte-gold to-orange-500 text-white shadow-[0_0_20px_rgba(245,158,11,0.4)]"
+                                : "text-bitte-steel hover:text-white hover:bg-white/5"
                                 }`}
                         >
                             <FileSpreadsheet className="w-5 h-5 shrink-0" />
